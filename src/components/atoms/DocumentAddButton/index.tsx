@@ -1,0 +1,28 @@
+import * as React from 'react';
+import { TiDocumentAdd } from 'react-icons/ti';
+import styled from 'styled-components';
+
+const Button = styled.button`
+  height: 100%;
+  width: 100%;
+
+  .icon {
+    color: white;
+    height: 100%;
+    width: 100%;
+  }
+`;
+
+export interface DocumentAddButtonProps {
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+const DocumentAddButton: React.SFC<DocumentAddButtonProps> = ({
+  onClick
+}: DocumentAddButtonProps) => (
+  <Button onClick={onClick}>
+    <TiDocumentAdd className="icon" />
+  </Button>
+);
+
+export default DocumentAddButton;
