@@ -1,6 +1,6 @@
 import actionCreatorFactory from 'typescript-fsa';
 
 const actionCreator = actionCreatorFactory();
-const addLayer = actionCreator('LAYER.ADD_LAYER');
+const addTextLayer = actionCreator('LAYER.ADD_TEXT_LAYER');
 
-export default addLayer;
+export default addTextLayer;

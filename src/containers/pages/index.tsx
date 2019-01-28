@@ -1,5 +1,6 @@
 import setFonts from 'actions/fonts/setFonts';
-import addLayer from 'actions/layer/addLayer';
+import addImageLayer from 'actions/layer/addImageLayer';
+import addTextLayer from 'actions/layer/addTextLayer';
 import changeStyle from 'actions/layer/changeStyle';
 import changeValue from 'actions/layer/changeValue';
 import removeLayer from 'actions/layer/removeLayer';
@@ -13,14 +14,15 @@ import ImageButton from 'components/atoms/ImageButton';
 import Information, {
   InformationProps
 } from 'components/organisms/Information';
-import Layers from 'components/organisms/Layers';
+import Layers, { LayersProps } from 'components/organisms/Layers';
 import LayerSetting from 'components/organisms/LayerSetting';
 import Preview from 'components/organisms/Preview';
 import LayerStyles, {
   LayerStylesProps
 } from 'components/organisms/LayerStyles';
+import Dropzone, { DropzoneProps } from 'components/templates/Dropzone';
 import domtoimage from 'dom-to-image';
-import FileSaver from 'file-saver';
+import { saveAs } from 'file-saver';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
@@ -77,13 +79,20 @@ export interface PagesProps
   extends ReturnType<typeof mapDispatchToProps>,
     ReturnType<typeof mapStateToProps> {}
 
-class Pages extends React.Component<PagesProps> {
+interface PagesState {
+  isShowPortal: boolean;
+}
+
+class Pages extends React.Component<PagesProps, PagesState> {
   rootEl: HTMLElement;
 
   constructor(props: PagesProps) {
     super(props);
 
     this.rootEl = document.getElementById('root');
+    this.state = {
+      isShowPortal: false
+    };
   }
 
   componentDidMount() {
@@ -112,9 +121,21 @@ class Pages extends React.Component<PagesProps> {
     request.send();
   }
 
+  componentDidUpdate({ layers: prevLayers }: PagesProps) {
+    const { layers } = this.props;
+    const { isShowPortal } = this.state;
+
+    if (prevLayers.length !== layers.length) {
+      this.setState({
+        isShowPortal: false
+      });
+    }
+  }
+
   render() {
     const {
-      addLayer,
+      addImageLayers,
+      addTextLayer,
       changeColor,
       changeFontFamily,
       changePreviewValue,
@@ -127,6 +148,8 @@ class Pages extends React.Component<PagesProps> {
       removeLayer,
       selectLayer
     } = this.props;
+    const { isShowPortal } = this.state;
+
     let style;
 
     if (index !== undefined) {
@@ -141,7 +164,7 @@ class Pages extends React.Component<PagesProps> {
           <button
             onClick={() => {
               domtoimage.toBlob(document.getElementById('test')!).then(blob => {
-                FileSaver.saveAs(blob, 'test.png');
+                saveAs(blob, 'test.png');
               });
             }}
           >
@@ -166,9 +189,16 @@ class Pages extends React.Component<PagesProps> {
         <aside className="side-layers">
           <LayerSetting>
             {[
-              <DocumentAddButton key="add" onClick={addLayer} />,
+              <DocumentAddButton key="add" onClick={addTextLayer} />,
               <DocumentDeleteButton key="delete" onClick={removeLayer} />,
-              <ImageButton key="image" onClick={() => {}} />,
+              <ImageButton
+                key="image"
+                onClick={() => {
+                  this.setState({
+                    isShowPortal: true
+                  });
+                }}
+              />,
               <ArrowUpOutlineButton key="up" />,
               <ArrowDownOutlineButton key="down" />
             ]}
@@ -178,18 +208,31 @@ class Pages extends React.Component<PagesProps> {
               index={index}
               layers={layers}
               onChange={changeValue}
+              onClick={selectLayer}
               onFocus={selectLayer}
             />
           </div>
         </aside>
-        {ReactDOM.createPortal(<p>a</p>, this.rootEl)}
+        {isShowPortal
+          ? ReactDOM.createPortal(
+              <Dropzone onDrop={addImageLayers} />,
+              this.rootEl
+            )
+          : ''}
       </Div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  addLayer: () => dispatch(addLayer()),
+  addImageLayers: (
+    acceptedFiles: ArgumentTypes<DropzoneProps['onDrop']>[0]
+  ) => {
+    acceptedFiles.forEach(acceptedFile => {
+      dispatch(addImageLayer({ url: URL.createObjectURL(acceptedFile) }));
+    });
+  },
+  addTextLayer: () => dispatch(addTextLayer()),
   changeColor: ({
     rgb: value
   }: ArgumentTypes<LayerStylesProps['onChangeColor']>[0]) =>
@@ -214,7 +257,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   removeLayer: () => dispatch(removeLayer()),
   selectLayer: ({
     currentTarget: { dataset }
-  }: React.FocusEvent<HTMLTextAreaElement>) =>
+  }:
+    | ArgumentTypes<LayersProps['onClick']>[0]
+    | ArgumentTypes<LayersProps['onFocus']>[0]) =>
     dispatch(selectLayer({ index: parseInt(dataset['index'], 10) })),
   setFonts: (fonts: Font[]) => dispatch(setFonts({ fonts }))
 });

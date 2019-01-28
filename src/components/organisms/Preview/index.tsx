@@ -11,8 +11,9 @@ const Div = styled.div`
   width: 100%;
 
   .wrapper {
+    box-sizing: content-box;
     left: 0;
-    padding: 50px 0 0 50px;
+    padding: 50px;
     position: absolute;
     top: 0;
     transform-origin: top left;
@@ -37,7 +38,12 @@ const Div = styled.div`
   }
 `;
 
-interface Layer {
+interface ImageLayer {
+  style: {};
+  url: string;
+}
+
+interface TextLayer {
   style: {
     color: {
       a: number;
@@ -57,7 +63,7 @@ interface Layer {
 }
 
 export interface PreviewProps {
-  layers: Layer[];
+  layers: (ImageLayer | TextLayer)[];
   preview: {
     height: number;
     overflow: boolean;
@@ -84,9 +90,11 @@ class Preview extends React.Component<PreviewProps> {
       layers,
       preview: { height, overflow, scale, width }
     } = this.props;
-    const previews = layers.map(
-      (
-        {
+    const previews = layers.map((layer, index) => {
+      const layerList = [];
+
+      if ('value' in layer) {
+        const {
           style: {
             color: { a, b, g, r },
             fontFamily: { value: fontFamily },
@@ -95,15 +103,10 @@ class Preview extends React.Component<PreviewProps> {
             ...style
           },
           value
-        },
-        index
-      ) => (
-        <ReactScalableDraggable
-          className="draggable"
-          key={index}
-          parentScale={scale}
-        >
-          {value.split(/\r\n|\r|\n/).map((v, index) => (
+        } = layer;
+
+        value.split(/\r\n|\r|\n/).forEach((v, index) => {
+          layerList.push(
             <div
               key={index}
               style={{
@@ -117,10 +120,24 @@ class Preview extends React.Component<PreviewProps> {
             >
               {v}
             </div>
-          ))}
+          );
+        });
+      } else if ('url' in layer) {
+        const { url } = layer;
+
+        layerList.push(<img src={url} />);
+      }
+
+      return (
+        <ReactScalableDraggable
+          className="draggable"
+          key={index}
+          parentScale={scale}
+        >
+          {layerList}
         </ReactScalableDraggable>
-      )
-    );
+      );
+    });
 
     return (
       <Div id="preview">

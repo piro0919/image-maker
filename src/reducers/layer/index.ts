@@ -1,11 +1,17 @@
-import addLayer from 'actions/layer/addLayer';
+import addImageLayer from 'actions/layer/addImageLayer';
+import addTextLayer from 'actions/layer/addTextLayer';
 import changeStyle from 'actions/layer/changeStyle';
 import changeValue from 'actions/layer/changeValue';
 import removeLayer from 'actions/layer/removeLayer';
 import selectLayer from 'actions/layer/selectLayer';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 
-interface Layer {
+interface ImageLayer {
+  style: {};
+  url: string;
+}
+
+interface TextLayer {
   style: {
     color: {
       a: number;
@@ -26,7 +32,7 @@ interface Layer {
 
 export interface LayerState {
   index?: number;
-  layers: Layer[];
+  layers: (ImageLayer | TextLayer)[];
 }
 
 const initialState: LayerState = {
@@ -35,7 +41,18 @@ const initialState: LayerState = {
 };
 
 const layer = reducerWithInitialState(initialState)
-  .case(addLayer, state => {
+  .case(addImageLayer, (state, { url }) => {
+    const { layers: oldLayers } = state;
+    const layers = oldLayers.slice();
+
+    layers.push({
+      url,
+      style: {}
+    });
+
+    return { ...state, layers };
+  })
+  .case(addTextLayer, state => {
     const { layers: oldLayers } = state;
     const layers = oldLayers.slice();
 
@@ -75,8 +92,13 @@ const layer = reducerWithInitialState(initialState)
   .case(changeValue, (state, { value }) => {
     const { index, layers: oldLayers } = state;
     const layers = oldLayers.slice();
+    const layer = layers[index];
 
-    layers[index].value = value;
+    if ('value' in layer) {
+      layer.value = value;
+
+      layers[index] = layer;
+    }
 
     return { ...state, layers };
   })

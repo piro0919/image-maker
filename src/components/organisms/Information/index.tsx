@@ -40,61 +40,57 @@ const Information: React.SFC<InformationProps> = ({
   overflow,
   scale,
   width
-}: InformationProps) => {
-  console.log(overflow);
-
-  return (
-    <Div>
-      <dl>
-        <dt>width</dt>
-        <dd>
-          <Input
-            className="input"
-            min={0}
-            name="width"
-            onChange={onChange}
-            type="number"
-            value={width}
-          />
-          px
-        </dd>
-        <dt>height</dt>
-        <dd>
-          <Input
-            className="input"
-            min={0}
-            name="height"
-            onChange={onChange}
-            type="number"
-            value={height}
-          />
-          px
-        </dd>
-        <dt>scale</dt>
-        <dd>
-          <Input
-            className="input"
-            min={0}
-            name="scale"
-            onChange={onChange}
-            step={0.1}
-            type="number"
-            value={scale}
-          />
-          px
-        </dd>
-        <dt>overflow</dt>
-        <dd>
-          <Input
-            defaultChecked={overflow}
-            name="overflow"
-            onChange={onChange}
-            type="checkbox"
-          />
-        </dd>
-      </dl>
-    </Div>
-  );
-};
+}: InformationProps) => (
+  <Div>
+    <dl>
+      <dt>width</dt>
+      <dd>
+        <Input
+          className="input"
+          min={0}
+          name="width"
+          onChange={onChange}
+          type="number"
+          value={width}
+        />
+        px
+      </dd>
+      <dt>height</dt>
+      <dd>
+        <Input
+          className="input"
+          min={0}
+          name="height"
+          onChange={onChange}
+          type="number"
+          value={height}
+        />
+        px
+      </dd>
+      <dt>scale</dt>
+      <dd>
+        <Input
+          className="input"
+          min={0}
+          name="scale"
+          onChange={onChange}
+          step={0.1}
+          type="number"
+          value={scale}
+        />
+        px
+      </dd>
+      <dt>overflow</dt>
+      <dd>
+        <Input
+          defaultChecked={overflow}
+          name="overflow"
+          onChange={onChange}
+          type="checkbox"
+        />
+      </dd>
+    </dl>
+  </Div>
+);
 
 export default Information;
