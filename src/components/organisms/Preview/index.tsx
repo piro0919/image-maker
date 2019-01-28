@@ -111,7 +111,7 @@ const Preview: React.SFC<PreviewProps> = ({
     } else if ('url' in layer) {
       const { style, url } = layer;
 
-      layerList.push(<ImagePreview style={style} url={url} />);
+      layerList.push(<ImagePreview key={url} style={style} url={url} />);
     }
 
     return (

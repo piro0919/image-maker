@@ -3,6 +3,7 @@ import * as uniqid from 'uniqid';
 
 export interface ImagePreviewProps {
   style: {
+    opacity: number;
     rotate: number;
     scale: number;
   };
@@ -59,7 +60,7 @@ class ImagePreview extends React.Component<
 
   render() {
     const {
-      style: { rotate, scale }
+      style: { rotate, scale, ...style }
     } = this.props;
     const { height, width } = this.state;
 
@@ -67,7 +68,7 @@ class ImagePreview extends React.Component<
       <canvas
         height={height}
         id={this.id}
-        style={{ transform: `rotate(${rotate}deg) scale(${scale})` }}
+        style={{ transform: `rotate(${rotate}deg) scale(${scale})`, ...style }}
         width={width}
       />
     );

@@ -10,6 +10,7 @@ import { reducerWithInitialState } from 'typescript-fsa-reducers';
 
 interface ImageLayer {
   style: {
+    opacity: number;
     rotate: number;
     scale: number;
   };
@@ -31,6 +32,7 @@ interface TextLayer {
     fontSize: number;
     fontWeight: number;
     lineHeight: number;
+    opacity: number;
     rotate: number;
   };
   value: string;
@@ -54,6 +56,7 @@ const layer = reducerWithInitialState(initialState)
     layers.push({
       url,
       style: {
+        opacity: 1,
         rotate: 0,
         scale: 1
       }
@@ -80,6 +83,7 @@ const layer = reducerWithInitialState(initialState)
         fontSize: 16,
         fontWeight: 400,
         lineHeight: 16,
+        opacity: 1,
         rotate: 0
       },
       value: ''
@@ -93,7 +97,7 @@ const layer = reducerWithInitialState(initialState)
 
     if (name === 'fontSize' || name === 'fontWeight' || name === 'lineHeight') {
       layers[index].style[name] = parseInt(value, 10);
-    } else if (name === 'rotate' || name === 'scale') {
+    } else if (name === 'opacity' || name === 'rotate' || name === 'scale') {
       layers[index].style[name] = parseFloat(value);
     } else {
       layers[index].style[name] = value;

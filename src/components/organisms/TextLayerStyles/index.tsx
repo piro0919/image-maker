@@ -60,6 +60,7 @@ export interface TextLayerStylesProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeColor: (color: ColorResult) => void;
   onChangeFontFamily: (value: ArgumentTypes<Props['onChange']>[0]) => void;
+  opacity: number;
   rotate: number;
 }
 
@@ -73,6 +74,7 @@ const TextLayerStyles: React.SFC<TextLayerStylesProps> = ({
   onChange,
   onChangeColor,
   onChangeFontFamily,
+  opacity,
   rotate
 }: TextLayerStylesProps) => (
   <Dl>
@@ -130,6 +132,19 @@ const TextLayerStyles: React.SFC<TextLayerStylesProps> = ({
         value={lineHeight}
       />
       px
+    </dd>
+    <dt>opacity</dt>
+    <dd>
+      <Input
+        className="input"
+        max={1}
+        min={0}
+        name="opacity"
+        onChange={onChange}
+        step={0.1}
+        type="number"
+        value={opacity}
+      />
     </dd>
     <dt>rotate</dt>
     <dd>

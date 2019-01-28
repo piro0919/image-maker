@@ -1,0 +1,55 @@
+@font-face {
+  font-family: 'KikaiChokokuJIS-Md';
+  src: url('/fonts/KikaiChokokuJIS-Md.woff2') format('woff2'),
+    url('/fonts/KikaiChokokuJIS-Md.woff') format('woff'),
+    url('/fonts/KikaiChokokuJIS-Md.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'ShipporiMincho-Regular';
+  src: url('/fonts/ShipporiMincho-Regular.woff2') format('woff2'),
+    url('/fonts/ShipporiMincho-Regular.woff') format('woff'),
+    url('/fonts/ShipporiMincho-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'togalite-black';
+  src: url('/fonts/togalite-black.woff2') format('woff2'),
+    url('/fonts/togalite-black.woff') format('woff'),
+    url('/fonts/togalite-black.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'togalite-bold';
+  src: url('/fonts/togalite-bold.woff2') format('woff2'),
+    url('/fonts/togalite-bold.woff') format('woff'),
+    url('/fonts/togalite-bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'togalite-heavy';
+  src: url('/fonts/togalite-heavy.woff2') format('woff2'),
+    url('/fonts/togalite-heavy.woff') format('woff'),
+    url('/fonts/togalite-heavy.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'togalite-light';
+  src: url('/fonts/togalite-light.woff2') format('woff2'),
+    url('/fonts/togalite-light.woff') format('woff'),
+    url('/fonts/togalite-light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'togalite-medium';
+  src: url('/fonts/togalite-medium.woff2') format('woff2'),
+    url('/fonts/togalite-medium.woff') format('woff'),
+    url('/fonts/togalite-medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'togalite-regular';
+  src: url('/fonts/togalite-regular.woff2') format('woff2'),
+    url('/fonts/togalite-regular.woff') format('woff'),
+    url('/fonts/togalite-regular.ttf') format('truetype');
+}

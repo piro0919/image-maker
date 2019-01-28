@@ -1,0 +1,31 @@
+[
+  { "fontFamily": "KikaiChokokuJIS-Md", "name": "機械彫刻用標準書体 M" },
+  {
+    "fontFamily": "ShipporiMincho-Regular",
+    "name": "しっぽり明朝v2"
+  },
+  {
+    "fontFamily": "togalite-black",
+    "name": "トガリテ black"
+  },
+  {
+    "fontFamily": "togalite-bold",
+    "name": "トガリテ bold"
+  },
+  {
+    "fontFamily": "togalite-heavy",
+    "name": "トガリテ heavy"
+  },
+  {
+    "fontFamily": "togalite-light",
+    "name": "トガリテ light"
+  },
+  {
+    "fontFamily": "togalite-medium",
+    "name": "トガリテ medium"
+  },
+  {
+    "fontFamily": "togalite-regular",
+    "name": "トガリテ regular"
+  }
+]

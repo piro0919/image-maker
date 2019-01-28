@@ -20,16 +20,31 @@ const Dl = styled.ul`
 
 export interface ImageLayerStylesProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  opacity: number;
   rotate: number;
   scale: number;
 }
 
 const ImageLayerStyles: React.SFC<ImageLayerStylesProps> = ({
   onChange,
+  opacity,
   rotate,
   scale
 }: ImageLayerStylesProps) => (
   <Dl>
+    <dt>opacity</dt>
+    <dd>
+      <Input
+        className="input"
+        max={1}
+        min={0}
+        name="opacity"
+        onChange={onChange}
+        step={0.1}
+        type="number"
+        value={opacity}
+      />
+    </dd>
     <dt>rotate</dt>
     <dd>
       <Input
