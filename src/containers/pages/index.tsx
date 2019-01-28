@@ -3,23 +3,26 @@ import addImageLayer from 'actions/layer/addImageLayer';
 import addTextLayer from 'actions/layer/addTextLayer';
 import changeStyle from 'actions/layer/changeStyle';
 import changeValue from 'actions/layer/changeValue';
+import downLayer from 'actions/layer/downLayer';
 import removeLayer from 'actions/layer/removeLayer';
 import selectLayer from 'actions/layer/selectLayer';
+import upLayer from 'actions/layer/upLayer';
 import changePreviewValue from 'actions/preview/changeValue';
 import ArrowUpOutlineButton from 'components/atoms/ArrowDownOutlineButton';
 import ArrowDownOutlineButton from 'components/atoms/ArrowUpOutlineButton';
 import DocumentAddButton from 'components/atoms/DocumentAddButton';
 import DocumentDeleteButton from 'components/atoms/DocumentDeleteButton';
 import ImageButton from 'components/atoms/ImageButton';
+import ImageLayerStyles from 'components/organisms/ImageLayerStyles';
 import Information, {
   InformationProps
 } from 'components/organisms/Information';
 import Layers, { LayersProps } from 'components/organisms/Layers';
 import LayerSetting from 'components/organisms/LayerSetting';
 import Preview from 'components/organisms/Preview';
-import LayerStyles, {
-  LayerStylesProps
-} from 'components/organisms/LayerStyles';
+import TextLayerStyles, {
+  TextLayerStylesProps
+} from 'components/organisms/TextLayerStyles';
 import Dropzone, { DropzoneProps } from 'components/templates/Dropzone';
 import domtoimage from 'dom-to-image';
 import { saveAs } from 'file-saver';
@@ -123,7 +126,6 @@ class Pages extends React.Component<PagesProps, PagesState> {
 
   componentDidUpdate({ layers: prevLayers }: PagesProps) {
     const { layers } = this.props;
-    const { isShowPortal } = this.state;
 
     if (prevLayers.length !== layers.length) {
       this.setState({
@@ -141,21 +143,39 @@ class Pages extends React.Component<PagesProps, PagesState> {
       changePreviewValue,
       changeStyle,
       changeValue,
+      downLayer,
       fonts,
       index,
       layers,
       preview,
       removeLayer,
-      selectLayer
+      selectLayer,
+      upLayer
     } = this.props;
     const { isShowPortal } = this.state;
 
-    let style;
+    let styles = <React.Fragment />;
 
     if (index !== undefined) {
-      const { style: layerStyle } = layers[index];
+      const layer = layers[index];
 
-      style = layerStyle;
+      if ('value' in layer) {
+        const { style } = layer;
+
+        styles = (
+          <TextLayerStyles
+            {...style}
+            fonts={fonts}
+            onChange={changeStyle}
+            onChangeColor={changeColor}
+            onChangeFontFamily={changeFontFamily}
+          />
+        );
+      } else if ('url' in layer) {
+        const { style } = layer;
+
+        styles = <ImageLayerStyles {...style} onChange={changeStyle} />;
+      }
     }
 
     return (
@@ -171,17 +191,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
             save
           </button>
         </header>
-        <aside className="detail">
-          {style && (
-            <LayerStyles
-              {...style}
-              fonts={fonts}
-              onChange={changeStyle}
-              onChangeColor={changeColor}
-              onChangeFontFamily={changeFontFamily}
-            />
-          )}
-        </aside>
+        <aside className="detail">{styles}</aside>
         <div className="preview">
           <Preview layers={layers} preview={preview} />
           <Information {...preview} onChange={changePreviewValue} />
@@ -190,7 +200,11 @@ class Pages extends React.Component<PagesProps, PagesState> {
           <LayerSetting>
             {[
               <DocumentAddButton key="add" onClick={addTextLayer} />,
-              <DocumentDeleteButton key="delete" onClick={removeLayer} />,
+              <DocumentDeleteButton
+                disabled={index === undefined}
+                key="delete"
+                onClick={removeLayer}
+              />,
               <ImageButton
                 key="image"
                 onClick={() => {
@@ -199,8 +213,16 @@ class Pages extends React.Component<PagesProps, PagesState> {
                   });
                 }}
               />,
-              <ArrowUpOutlineButton key="up" />,
-              <ArrowDownOutlineButton key="down" />
+              <ArrowUpOutlineButton
+                disabled={index === undefined || index === layers.length - 1}
+                key="up"
+                onClick={upLayer}
+              />,
+              <ArrowDownOutlineButton
+                disabled={!index}
+                key="down"
+                onClick={downLayer}
+              />
             ]}
           </LayerSetting>
           <div className="layers">
@@ -235,10 +257,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   addTextLayer: () => dispatch(addTextLayer()),
   changeColor: ({
     rgb: value
-  }: ArgumentTypes<LayerStylesProps['onChangeColor']>[0]) =>
+  }: ArgumentTypes<TextLayerStylesProps['onChangeColor']>[0]) =>
     dispatch(changeStyle({ value, name: 'color' })),
   changeFontFamily: (
-    value: ArgumentTypes<LayerStylesProps['onChangeFontFamily']>[0]
+    value: ArgumentTypes<TextLayerStylesProps['onChangeFontFamily']>[0]
   ) => dispatch(changeStyle({ value, name: 'fontFamily' })),
   changePreviewValue: ({
     currentTarget: { checked, name, type, value }
@@ -248,12 +270,13 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     ),
   changeStyle: ({
     currentTarget: { name, value }
-  }: ArgumentTypes<LayerStylesProps['onChange']>[0]) =>
+  }: ArgumentTypes<TextLayerStylesProps['onChange']>[0]) =>
     dispatch(changeStyle({ name, value })),
   changeValue: ({
     target: { value }
   }: React.ChangeEvent<HTMLTextAreaElement>) =>
     dispatch(changeValue({ value })),
+  downLayer: () => dispatch(downLayer()),
   removeLayer: () => dispatch(removeLayer()),
   selectLayer: ({
     currentTarget: { dataset }
@@ -261,7 +284,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     | ArgumentTypes<LayersProps['onClick']>[0]
     | ArgumentTypes<LayersProps['onFocus']>[0]) =>
     dispatch(selectLayer({ index: parseInt(dataset['index'], 10) })),
-  setFonts: (fonts: Font[]) => dispatch(setFonts({ fonts }))
+  setFonts: (fonts: Font[]) => dispatch(setFonts({ fonts })),
+  upLayer: () => dispatch(upLayer())
 });
 
 const mapStateToProps = ({

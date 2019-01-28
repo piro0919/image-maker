@@ -17,10 +17,8 @@ export interface ImageButtonProps {
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const ImageButton: React.SFC<ImageButtonProps> = ({
-  onClick
-}: ImageButtonProps) => (
-  <Button onClick={onClick}>
+const ImageButton: React.SFC<ImageButtonProps> = (props: ImageButtonProps) => (
+  <Button {...props}>
     <TiImage className="icon" />
   </Button>
 );

@@ -2,12 +2,17 @@ import addImageLayer from 'actions/layer/addImageLayer';
 import addTextLayer from 'actions/layer/addTextLayer';
 import changeStyle from 'actions/layer/changeStyle';
 import changeValue from 'actions/layer/changeValue';
+import downLayer from 'actions/layer/downLayer';
 import removeLayer from 'actions/layer/removeLayer';
 import selectLayer from 'actions/layer/selectLayer';
+import upLayer from 'actions/layer/upLayer';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 
 interface ImageLayer {
-  style: {};
+  style: {
+    rotate: number;
+    scale: number;
+  };
   url: string;
 }
 
@@ -26,6 +31,7 @@ interface TextLayer {
     fontSize: number;
     fontWeight: number;
     lineHeight: number;
+    rotate: number;
   };
   value: string;
 }
@@ -47,7 +53,10 @@ const layer = reducerWithInitialState(initialState)
 
     layers.push({
       url,
-      style: {}
+      style: {
+        rotate: 0,
+        scale: 1
+      }
     });
 
     return { ...state, layers };
@@ -70,7 +79,8 @@ const layer = reducerWithInitialState(initialState)
         },
         fontSize: 16,
         fontWeight: 400,
-        lineHeight: 16
+        lineHeight: 16,
+        rotate: 0
       },
       value: ''
     });
@@ -83,6 +93,8 @@ const layer = reducerWithInitialState(initialState)
 
     if (name === 'fontSize' || name === 'fontWeight' || name === 'lineHeight') {
       layers[index].style[name] = parseInt(value, 10);
+    } else if (name === 'rotate' || name === 'scale') {
+      layers[index].style[name] = parseFloat(value);
     } else {
       layers[index].style[name] = value;
     }
@@ -102,6 +114,16 @@ const layer = reducerWithInitialState(initialState)
 
     return { ...state, layers };
   })
+  .case(downLayer, state => {
+    const { index, layers: oldLayers } = state;
+    const layers = oldLayers.slice();
+    const tmpLayer = layers[index];
+
+    layers[index] = layers[index - 1];
+    layers[index - 1] = tmpLayer;
+
+    return { ...state, layers };
+  })
   .case(removeLayer, state => {
     const { index, layers: prevLayers } = state;
 
@@ -118,6 +140,16 @@ const layer = reducerWithInitialState(initialState)
       index: undefined
     };
   })
-  .case(selectLayer, (state, { index }) => ({ ...state, index }));
+  .case(selectLayer, (state, { index }) => ({ ...state, index }))
+  .case(upLayer, state => {
+    const { index, layers: oldLayers } = state;
+    const layers = oldLayers.slice();
+    const tmpLayer = layers[index];
+
+    layers[index] = layers[index + 1];
+    layers[index + 1] = tmpLayer;
+
+    return { ...state, layers };
+  });
 
 export default layer;

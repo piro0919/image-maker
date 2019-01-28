@@ -6,6 +6,10 @@ const Button = styled.button`
   height: 100%;
   width: 100%;
 
+  &:disabled {
+    opacity: 0.5;
+  }
+
   .icon {
     color: white;
     height: 100%;
@@ -14,13 +18,14 @@ const Button = styled.button`
 `;
 
 export interface DocumentDeleteButtonProps {
+  disabled: boolean;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const DocumentDeleteButton: React.SFC<DocumentDeleteButtonProps> = ({
-  onClick
-}: DocumentDeleteButtonProps) => (
-  <Button onClick={onClick}>
+const DocumentDeleteButton: React.SFC<DocumentDeleteButtonProps> = (
+  props: DocumentDeleteButtonProps
+) => (
+  <Button {...props}>
     <TiDocumentDelete className="icon" />
   </Button>
 );

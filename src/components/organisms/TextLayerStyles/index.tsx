@@ -42,7 +42,7 @@ interface Font {
   name: string;
 }
 
-export interface LayerStylesProps {
+export interface TextLayerStylesProps {
   color: {
     a: number;
     b: number;
@@ -60,9 +60,10 @@ export interface LayerStylesProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeColor: (color: ColorResult) => void;
   onChangeFontFamily: (value: ArgumentTypes<Props['onChange']>[0]) => void;
+  rotate: number;
 }
 
-const LayerStyles: React.SFC<LayerStylesProps> = ({
+const TextLayerStyles: React.SFC<TextLayerStylesProps> = ({
   color,
   fontFamily,
   fonts,
@@ -71,8 +72,9 @@ const LayerStyles: React.SFC<LayerStylesProps> = ({
   lineHeight,
   onChange,
   onChangeColor,
-  onChangeFontFamily
-}: LayerStylesProps) => (
+  onChangeFontFamily,
+  rotate
+}: TextLayerStylesProps) => (
   <Dl>
     <dt>color</dt>
     <dd>
@@ -129,7 +131,19 @@ const LayerStyles: React.SFC<LayerStylesProps> = ({
       />
       px
     </dd>
+    <dt>rotate</dt>
+    <dd>
+      <Input
+        className="input"
+        name="rotate"
+        onChange={onChange}
+        step={0.1}
+        type="number"
+        value={rotate}
+      />
+      deg
+    </dd>
   </Dl>
 );
 
-export default LayerStyles;
+export default TextLayerStyles;

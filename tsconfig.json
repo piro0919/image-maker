@@ -2,14 +2,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "jsx": "react",
-    "lib": [
-      "es6",
-      "dom"
-    ],
+    "lib": ["es6", "dom"],
     "paths": {
-      "*": [
-        "src/*"
-      ]
+      "*": ["src/*"]
     }
-  }
+  },
+  "exclude": ["node_modules", "build", "scripts"]
 }

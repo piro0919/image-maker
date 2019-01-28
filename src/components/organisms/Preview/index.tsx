@@ -1,4 +1,6 @@
-import * as $ from 'jquery';
+import ImagePreview, {
+  ImagePreviewProps
+} from 'components/molecules/ImagePreview';
 import * as React from 'react';
 import ReactScalableDraggable from 'react-scalable-draggable';
 import styled from 'styled-components';
@@ -38,11 +40,6 @@ const Div = styled.div`
   }
 `;
 
-interface ImageLayer {
-  style: {};
-  url: string;
-}
-
 interface TextLayer {
   style: {
     color: {
@@ -58,12 +55,13 @@ interface TextLayer {
     fontSize: number;
     fontWeight: number;
     lineHeight: number;
+    rotate: number;
   };
   value: string;
 }
 
 export interface PreviewProps {
-  layers: (ImageLayer | TextLayer)[];
+  layers: (ImagePreviewProps | TextLayer)[];
   preview: {
     height: number;
     overflow: boolean;
@@ -72,95 +70,82 @@ export interface PreviewProps {
   };
 }
 
-class Preview extends React.Component<PreviewProps> {
-  componentDidUpdate({
-    preview: { height: prevHeight, scale: prevScale, width: prevWidth }
-  }: PreviewProps) {
-    const {
-      preview: { height, scale, width }
-    } = this.props;
+const Preview: React.SFC<PreviewProps> = ({
+  layers,
+  preview: { height, overflow, scale, width }
+}) => {
+  const previews = layers.map((layer, index) => {
+    const layerList = [];
 
-    if (prevHeight !== height || prevScale !== scale || prevWidth !== width) {
-      // TODO: スクロールを中央にしたい
+    if ('value' in layer) {
+      const {
+        style: {
+          color: { a, b, g, r },
+          fontFamily: { value: fontFamily },
+          fontSize,
+          lineHeight,
+          rotate,
+          ...style
+        },
+        value
+      } = layer;
+
+      value.split(/\r\n|\r|\n/).forEach((v, index) => {
+        layerList.push(
+          <div
+            key={index}
+            style={{
+              fontFamily,
+              color: `rgba(${r}, ${g}, ${b}, ${a})`,
+              fontSize: `${fontSize}px`,
+              height: `${lineHeight}px`,
+              lineHeight: `${lineHeight}px`,
+              transform: `rotate(${rotate}deg)`,
+              ...style
+            }}
+          >
+            {v}
+          </div>
+        );
+      });
+    } else if ('url' in layer) {
+      const { style, url } = layer;
+
+      layerList.push(<ImagePreview style={style} url={url} />);
     }
-  }
-
-  render() {
-    const {
-      layers,
-      preview: { height, overflow, scale, width }
-    } = this.props;
-    const previews = layers.map((layer, index) => {
-      const layerList = [];
-
-      if ('value' in layer) {
-        const {
-          style: {
-            color: { a, b, g, r },
-            fontFamily: { value: fontFamily },
-            fontSize,
-            lineHeight,
-            ...style
-          },
-          value
-        } = layer;
-
-        value.split(/\r\n|\r|\n/).forEach((v, index) => {
-          layerList.push(
-            <div
-              key={index}
-              style={{
-                fontFamily,
-                color: `rgba(${r}, ${g}, ${b}, ${a})`,
-                fontSize: `${fontSize}px`,
-                height: `${lineHeight}px`,
-                lineHeight: `${lineHeight}px`,
-                ...style
-              }}
-            >
-              {v}
-            </div>
-          );
-        });
-      } else if ('url' in layer) {
-        const { url } = layer;
-
-        layerList.push(<img src={url} />);
-      }
-
-      return (
-        <ReactScalableDraggable
-          className="draggable"
-          key={index}
-          parentScale={scale}
-        >
-          {layerList}
-        </ReactScalableDraggable>
-      );
-    });
 
     return (
-      <Div id="preview">
-        <div
-          className="wrapper"
-          style={{
-            height: `${height}px`,
-            transform: `scale(${scale})`,
-            width: `${width}px`
-          }}
-        >
-          <div id="test">
-            <div
-              className="screen"
-              style={{ overflow: overflow ? 'visible' : 'hidden' }}
-            >
-              {previews}
-            </div>
+      <ReactScalableDraggable
+        className="draggable"
+        key={index}
+        parentScale={scale}
+      >
+        {layerList}
+      </ReactScalableDraggable>
+    );
+  });
+
+  return (
+    <Div id="preview">
+      <div
+        className="wrapper"
+        style={{
+          height: `${height}px`,
+          transform: `scale(${scale})`,
+          width: `${width}px`
+        }}
+      >
+        <div id="test">
+          <div
+            className="screen"
+            style={{ overflow: overflow ? 'visible' : 'hidden' }}
+          >
+            {previews}
           </div>
         </div>
-      </Div>
-    );
-  }
-}
+      </div>
+    </Div>
+  );
+};
 
 export default Preview;

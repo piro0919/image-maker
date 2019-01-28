@@ -17,10 +17,10 @@ export interface DocumentAddButtonProps {
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const DocumentAddButton: React.SFC<DocumentAddButtonProps> = ({
-  onClick
-}: DocumentAddButtonProps) => (
-  <Button onClick={onClick}>
+const DocumentAddButton: React.SFC<DocumentAddButtonProps> = (
+  props: DocumentAddButtonProps
+) => (
+  <Button {...props}>
     <TiDocumentAdd className="icon" />
   </Button>
 );

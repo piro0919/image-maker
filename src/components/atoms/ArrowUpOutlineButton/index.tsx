@@ -6,6 +6,10 @@ const Button = styled.button`
   height: 100%;
   width: 100%;
 
+  &:disabled {
+    opacity: 0.5;
+  }
+
   .icon {
     color: white;
     height: 100%;
@@ -13,8 +17,15 @@ const Button = styled.button`
   }
 `;
 
-const ArrowDownOutlineButton: React.SFC = () => (
-  <Button>
+export interface ArrowDownOutlineButtonProps {
+  disabled: boolean;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}
+
+const ArrowDownOutlineButton: React.SFC<ArrowDownOutlineButtonProps> = (
+  props: ArrowDownOutlineButtonProps
+) => (
+  <Button {...props}>
     <TiArrowDownOutline className="icon" />
   </Button>
 );
