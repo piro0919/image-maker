@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Image Maker",
+  "name": "Create Image By Combining Images And Texts",
   "icons": [
     {
       "src": "favicon.ico",

@@ -19,13 +19,12 @@ import Information, {
 } from 'components/organisms/Information';
 import Layers, { LayersProps } from 'components/organisms/Layers';
 import LayerSetting from 'components/organisms/LayerSetting';
+import Menu from 'components/organisms/Menu';
 import Preview from 'components/organisms/Preview';
 import TextLayerStyles, {
   TextLayerStylesProps
 } from 'components/organisms/TextLayerStyles';
 import Dropzone, { DropzoneProps } from 'components/templates/Dropzone';
-import domtoimage from 'dom-to-image';
-import { saveAs } from 'file-saver';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
@@ -181,15 +180,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
     return (
       <Div>
         <header className="header">
-          <button
-            onClick={() => {
-              domtoimage.toBlob(document.getElementById('test')!).then(blob => {
-                saveAs(blob, 'test.png');
-              });
-            }}
-          >
-            save
-          </button>
+          <Menu />
         </header>
         <aside className="detail">{styles}</aside>
         <div className="preview">

@@ -20,7 +20,7 @@ const Div = styled.div`
     top: 0;
     transform-origin: top left;
 
-    #test {
+    #capture {
       height: inherit;
       width: inherit;
 
@@ -135,7 +135,7 @@ const Preview: React.SFC<PreviewProps> = ({
           width: `${width}px`
         }}
       >
-        <div id="test">
+        <div id="capture">
           <div
             className="screen"
             style={{ overflow: overflow ? 'visible' : 'hidden' }}
