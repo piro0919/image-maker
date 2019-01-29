@@ -1,7 +1,7 @@
 self.__precacheManifest = [
   {
-    "revision": "75f5ecbbdcc74c40d078",
-    "url": "/image-maker/static/js/main.75f5ecbb.chunk.js"
+    "revision": "cb44807425846d3e4812",
+    "url": "/image-maker/static/js/main.cb448074.chunk.js"
   },
   {
     "revision": "0f6f1faea049df86e0d8",
@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/image-maker/static/js/runtime~main.79dc00fd.js"
   },
   {
-    "revision": "7a6c39cf4c4c9041da9b06df3c523e90",
+    "revision": "ae426082b932d02ed96bf600a382be44",
     "url": "/image-maker/index.html"
   }
 ];

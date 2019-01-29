@@ -102,10 +102,10 @@ class Pages extends React.Component<PagesProps, PagesState> {
   }
 
   componentDidMount() {
-    const { location, setFonts } = this.props;
+    const { setFonts } = this.props;
     const request = new XMLHttpRequest();
 
-    console.log(location);
+    console.log(process.env);
 
     request.open('GET', '/jsons/fonts.json', true);
     request.responseType = 'blob';
