@@ -131,7 +131,7 @@ const layer = reducerWithInitialState(initialState)
     layers[index] = layers[index - 1];
     layers[index - 1] = tmpLayer;
 
-    return { ...state, layers };
+    return { ...state, index: index - 1, layers };
   })
   .case(removeLayer, state => {
     const { index, layers: prevLayers } = state;
@@ -158,7 +158,7 @@ const layer = reducerWithInitialState(initialState)
     layers[index] = layers[index + 1];
     layers[index + 1] = tmpLayer;
 
-    return { ...state, layers };
+    return { ...state, index: index + 1, layers };
   });
 
 export default layer;

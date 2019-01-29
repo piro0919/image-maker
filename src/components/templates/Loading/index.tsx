@@ -1,3 +1,4 @@
+import * as $ from 'jquery';
 import * as React from 'react';
 import { DotLoader } from 'react-spinners';
 import styled from 'styled-components';
@@ -20,11 +21,23 @@ const Div = styled.div`
   }
 `;
 
-const Loading: React.SFC = () => (
-  <Div>
-    <DotLoader color="#234794" />
-    <p>Generating... wait a minutes.</p>
-  </Div>
-);
+class Loading extends React.Component {
+  componentDidMount() {
+    $('#root > div:not(.portal)').css('filter', 'blur(2.5px)');
+  }
+
+  componentWillUnmount() {
+    $('#root > div:not(.portal)').css('filter', 'blur(0)');
+  }
+
+  render() {
+    return (
+      <Div className="portal">
+        <DotLoader color="#234794" />
+        <p>Generating... wait a minutes.</p>
+      </Div>
+    );
+  }
+}
 
 export default Loading;

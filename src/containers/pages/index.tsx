@@ -25,6 +25,7 @@ import TextLayerStyles, {
   TextLayerStylesProps
 } from 'components/organisms/TextLayerStyles';
 import Dropzone, { DropzoneProps } from 'components/templates/Dropzone';
+import Logo from 'components/templates/Logo';
 import * as $ from 'jquery';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -86,6 +87,8 @@ export interface PagesProps
 
 interface PagesState {
   isShowDropzone: boolean;
+  isShowLogo: boolean;
+  loading: number;
 }
 
 class Pages extends React.Component<PagesProps, PagesState> {
@@ -95,9 +98,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
     super(props);
 
     this.rootEl = document.getElementById('root');
-    this.state = {
-      isShowDropzone: false
-    };
+    this.state = { isShowDropzone: false, isShowLogo: true, loading: 0 };
   }
 
   componentDidMount() {
@@ -112,6 +113,8 @@ class Pages extends React.Component<PagesProps, PagesState> {
       reader.onload = ({ target: { result } }: any) => {
         const fonts: Font[] = JSON.parse(result);
 
+        let counter = 0;
+
         setFonts(fonts);
 
         $('head').append(
@@ -124,8 +127,25 @@ class Pages extends React.Component<PagesProps, PagesState> {
         );
 
         WebFont.load({
-          custom: {
-            families: fonts.map(({ fontFamily }) => fontFamily)
+          active: () => {
+            setTimeout(() => {
+              this.setState({ isShowLogo: false });
+            }, 1000);
+          },
+          custom: { families: fonts.map(({ fontFamily }) => fontFamily) },
+          fontactive: () => {
+            counter = counter + 1;
+
+            this.setState({
+              loading: Math.ceil((counter / fonts.length) * 100)
+            });
+          },
+          fontinactive: () => {
+            counter = counter + 1;
+
+            this.setState({
+              loading: Math.ceil((counter / fonts.length) * 100)
+            });
           }
         });
       };
@@ -162,7 +182,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
       selectLayer,
       upLayer
     } = this.props;
-    const { isShowDropzone } = this.state;
+    const { isShowDropzone, isShowLogo, loading } = this.state;
 
     let styles = <React.Fragment />;
 
@@ -245,6 +265,11 @@ class Pages extends React.Component<PagesProps, PagesState> {
             />,
             this.rootEl
           )
+        ) : (
+          <React.Fragment />
+        )}
+        {isShowLogo ? (
+          ReactDOM.createPortal(<Logo loading={loading} />, this.rootEl)
         ) : (
           <React.Fragment />
         )}

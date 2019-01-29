@@ -1,3 +1,4 @@
+import * as $ from 'jquery';
 import * as React from 'react';
 import ReactDropzone, {
   DropzoneProps as ReactDropzoneProps
@@ -68,26 +69,37 @@ export interface DropzoneProps {
   onDrop: ReactDropzoneProps['onDrop'];
 }
 
-const Dropzone: React.SFC<DropzoneProps> = ({
-  onClickCloseButton,
-  onDrop
-}: DropzoneProps) => (
-  <Div>
-    <ReactDropzone accept="image/*" onDrop={onDrop}>
-      {({ getRootProps, getInputProps, isDragActive }) => (
-        <div {...getRootProps()} className="wrapper">
-          <input {...getInputProps()} />
-          <img src="/images/dd.png" />
-          <p>
-            {isDragActive
-              ? 'Drop files here...'
-              : 'Try dropping some image files here, or click to select files to upload.'}
-          </p>
-        </div>
-      )}
-    </ReactDropzone>
-    <button className="close-button" onClick={onClickCloseButton} />
-  </Div>
-);
+class Dropzone extends React.Component<DropzoneProps> {
+  componentDidMount() {
+    $('#root > div:not(.portal)').css('filter', 'blur(2.5px)');
+  }
+
+  componentWillUnmount() {
+    $('#root > div:not(.portal)').css('filter', 'blur(0)');
+  }
+
+  render() {
+    const { onClickCloseButton, onDrop } = this.props;
+
+    return (
+      <Div className="portal">
+        <ReactDropzone accept="image/*" onDrop={onDrop}>
+          {({ getRootProps, getInputProps, isDragActive }) => (
+            <div {...getRootProps()} className="wrapper">
+              <input {...getInputProps()} />
+              <img src="/images/dd.png" />
+              <p>
+                {isDragActive
+                  ? 'Drop files here...'
+                  : 'Try dropping some image files here, or click to select files to upload.'}
+              </p>
+            </div>
+          )}
+        </ReactDropzone>
+        <button className="close-button" onClick={onClickCloseButton} />
+      </Div>
+    );
+  }
+}
 
 export default Dropzone;
