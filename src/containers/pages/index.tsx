@@ -100,8 +100,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
     this.rootEl = document.getElementById('root');
     this.state = {
       isShowDropzone: false,
-      // isShowLogo: true,
-      isShowLogo: false,
+      isShowLogo: true,
       loading: 0
     };
   }
