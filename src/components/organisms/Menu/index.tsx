@@ -37,13 +37,19 @@ const Ul = styled.ul`
       top: 100%;
 
       > li {
+        > a,
         > button,
         > p {
           align-items: center;
           display: flex;
-          height: 24px;
-          margin: 0 30px 0 15px;
+          height: 25px;
+          padding: 0 30px 0 15px;
           white-space: nowrap;
+        }
+
+        > a {
+          color: inherit;
+          text-decoration: none;
         }
       }
     }
@@ -126,8 +132,16 @@ class Menu extends React.Component<MenuProps, MenuState> {
             <p>Help</p>
             <ul>
               <li>
-                <p>About Image Maker</p>
+                <a
+                  href="https://github.com/piro0919/image-maker"
+                  target="_blank"
+                >
+                  GitHub
+                </a>
               </li>
+              {/* <li>
+                <p>About Image Maker</p>
+              </li> */}
             </ul>
           </li>
         </Ul>

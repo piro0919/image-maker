@@ -34,7 +34,7 @@ const Div = styled.div`
         width: inherit;
 
         &::before {
-          background-image: url(/images/grid.png);
+          background-image: url(${process.env.PUBLIC_URL}/images/grid.png);
           background-repeat: repeat;
           background-size: inherit;
           content: '';
