@@ -1,6 +1,7 @@
 {
   "name": "image-maker",
   "version": "0.1.0",
+  "homepage": "https://piro0919.github.io/image-maker",
   "private": true,
   "dependencies": {
     "@babel/core": "7.1.6",
@@ -78,7 +79,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "deploy": "npm run build && gh-pages -d build",
     "test": "node scripts/test.js"
   },
   "browserslist": [
@@ -102,6 +103,7 @@
     "babel-plugin-module-resolver": "^3.1.1",
     "eslint-import-resolver-babel-module": "^4.0.0",
     "eslint-plugin-import": "^2.14.0",
+    "gh-pages": "^2.0.1",
     "tsconfig-paths-webpack-plugin": "^3.2.0"
   }
 }
