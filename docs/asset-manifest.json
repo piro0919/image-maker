@@ -1,6 +1,6 @@
 {
-  "main.js": "/image-maker/static/js/main.ce64faaa.chunk.js",
-  "main.js.map": "/image-maker/static/js/main.ce64faaa.chunk.js.map",
+  "main.js": "/image-maker/static/js/main.b9ca1561.chunk.js",
+  "main.js.map": "/image-maker/static/js/main.b9ca1561.chunk.js.map",
   "static/css/1.a0d2b07e.chunk.css": "/image-maker/static/css/1.a0d2b07e.chunk.css",
   "static/js/1.0f6f1fae.chunk.js": "/image-maker/static/js/1.0f6f1fae.chunk.js",
   "static/js/1.0f6f1fae.chunk.js.map": "/image-maker/static/js/1.0f6f1fae.chunk.js.map",
@@ -8,6 +8,6 @@
   "runtime~main.js.map": "/image-maker/static/js/runtime~main.79dc00fd.js.map",
   "static/css/1.a0d2b07e.chunk.css.map": "/image-maker/static/css/1.a0d2b07e.chunk.css.map",
   "index.html": "/image-maker/index.html",
-  "precache-manifest.685c21b65ace33bb959f40f95742bfb3.js": "/image-maker/precache-manifest.685c21b65ace33bb959f40f95742bfb3.js",
+  "precache-manifest.a0968170fe88f4f43d476c199aa6de4f.js": "/image-maker/precache-manifest.a0968170fe88f4f43d476c199aa6de4f.js",
   "service-worker.js": "/image-maker/service-worker.js"
 }

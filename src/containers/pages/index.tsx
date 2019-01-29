@@ -105,8 +105,6 @@ class Pages extends React.Component<PagesProps, PagesState> {
     const { setFonts } = this.props;
     const request = new XMLHttpRequest();
 
-    console.log(process.env.PUBLIC_URL);
-
     request.open('GET', `${process.env.PUBLIC_URL}/jsons/fonts.json`, true);
     request.responseType = 'blob';
     request.onload = ({ target: { response } }: any) => {
@@ -123,7 +121,13 @@ class Pages extends React.Component<PagesProps, PagesState> {
           `<style type="text/css">${fonts
             .map(
               ({ fontFamily }) =>
-                `@font-face {font-family: '${fontFamily}';src: url('/fonts/${fontFamily}.woff2') format('woff2'),url('/fonts/${fontFamily}.woff') format('woff'),url('/fonts/${fontFamily}.ttf') format('truetype');}`
+                `@font-face {font-family: '${fontFamily}';src: url('${
+                  process.env.PUBLIC_URL
+                }/fonts/${fontFamily}.woff2') format('woff2'),url('${
+                  process.env.PUBLIC_URL
+                }/fonts/${fontFamily}.woff') format('woff'),url('${
+                  process.env.PUBLIC_URL
+                }/fonts/${fontFamily}.ttf') format('truetype');}`
             )
             .join('')}</style>`
         );
