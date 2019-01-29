@@ -20,13 +20,14 @@ const Div = styled.div`
       margin-left: 5px;
 
       .input {
-        width: 75px;
+        width: 60px;
       }
     }
   }
 `;
 
 export interface InformationProps {
+  gridSize: number;
   height: number;
   onChange: InputProps['onChange'];
   overflow: boolean;
@@ -35,6 +36,7 @@ export interface InformationProps {
 }
 
 const Information: React.SFC<InformationProps> = ({
+  gridSize,
   height,
   onChange,
   overflow,
@@ -77,6 +79,19 @@ const Information: React.SFC<InformationProps> = ({
           step={0.1}
           type="number"
           value={scale}
+        />
+        px
+      </dd>
+      <dt>grid-size</dt>
+      <dd>
+        <Input
+          className="input"
+          max={500}
+          min={0}
+          name="gridSize"
+          onChange={onChange}
+          type="number"
+          value={gridSize}
         />
         px
       </dd>

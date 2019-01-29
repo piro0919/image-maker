@@ -19,15 +19,17 @@ import Information, {
 } from 'components/organisms/Information';
 import Layers, { LayersProps } from 'components/organisms/Layers';
 import LayerSetting from 'components/organisms/LayerSetting';
-import Menu from 'components/organisms/Menu';
+import Menu, { MenuProps } from 'components/organisms/Menu';
 import Preview from 'components/organisms/Preview';
 import TextLayerStyles, {
   TextLayerStylesProps
 } from 'components/organisms/TextLayerStyles';
 import Dropzone, { DropzoneProps } from 'components/templates/Dropzone';
+import * as $ from 'jquery';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router-dom';
 import { State } from 'reducers';
 import { Dispatch } from 'redux';
 import styled from 'styled-components';
@@ -47,7 +49,7 @@ const Div = styled.div`
 
   .detail {
     overflow-y: scroll;
-    padding: 5px;
+    padding: 5px 10px;
   }
 
   .preview {
@@ -79,10 +81,11 @@ interface Font {
 
 export interface PagesProps
   extends ReturnType<typeof mapDispatchToProps>,
-    ReturnType<typeof mapStateToProps> {}
+    ReturnType<typeof mapStateToProps>,
+    RouteComponentProps {}
 
 interface PagesState {
-  isShowPortal: boolean;
+  isShowDropzone: boolean;
 }
 
 class Pages extends React.Component<PagesProps, PagesState> {
@@ -93,7 +96,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
 
     this.rootEl = document.getElementById('root');
     this.state = {
-      isShowPortal: false
+      isShowDropzone: false
     };
   }
 
@@ -111,10 +114,18 @@ class Pages extends React.Component<PagesProps, PagesState> {
 
         setFonts(fonts);
 
+        $('head').append(
+          `<style type="text/css">${fonts
+            .map(
+              ({ fontFamily }) =>
+                `@font-face {font-family: '${fontFamily}';src: url('/fonts/${fontFamily}.woff2') format('woff2'),url('/fonts/${fontFamily}.woff') format('woff'),url('/fonts/${fontFamily}.ttf') format('truetype');}`
+            )
+            .join('')}</style>`
+        );
+
         WebFont.load({
           custom: {
-            families: fonts.map(({ fontFamily }) => fontFamily),
-            urls: ['/css/fonts.css']
+            families: fonts.map(({ fontFamily }) => fontFamily)
           }
         });
       };
@@ -125,11 +136,10 @@ class Pages extends React.Component<PagesProps, PagesState> {
 
   componentDidUpdate({ layers: prevLayers }: PagesProps) {
     const { layers } = this.props;
+    const { isShowDropzone } = this.state;
 
-    if (prevLayers.length !== layers.length) {
-      this.setState({
-        isShowPortal: false
-      });
+    if (isShowDropzone && prevLayers.length !== layers.length) {
+      this.setState({ isShowDropzone: false });
     }
   }
 
@@ -139,6 +149,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
       addTextLayer,
       changeColor,
       changeFontFamily,
+      changePreviewOverflow,
       changePreviewValue,
       changeStyle,
       changeValue,
@@ -151,7 +162,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
       selectLayer,
       upLayer
     } = this.props;
-    const { isShowPortal } = this.state;
+    const { isShowDropzone } = this.state;
 
     let styles = <React.Fragment />;
 
@@ -180,7 +191,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
     return (
       <Div>
         <header className="header">
-          <Menu />
+          <Menu {...preview} changePreviewOverflow={changePreviewOverflow} />
         </header>
         <aside className="detail">{styles}</aside>
         <div className="preview">
@@ -199,9 +210,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
               <ImageButton
                 key="image"
                 onClick={() => {
-                  this.setState({
-                    isShowPortal: true
-                  });
+                  this.setState({ isShowDropzone: true });
                 }}
               />,
               <ArrowUpOutlineButton
@@ -226,12 +235,19 @@ class Pages extends React.Component<PagesProps, PagesState> {
             />
           </div>
         </aside>
-        {isShowPortal
-          ? ReactDOM.createPortal(
-              <Dropzone onDrop={addImageLayers} />,
-              this.rootEl
-            )
-          : ''}
+        {isShowDropzone ? (
+          ReactDOM.createPortal(
+            <Dropzone
+              onClickCloseButton={() => {
+                this.setState({ isShowDropzone: false });
+              }}
+              onDrop={addImageLayers}
+            />,
+            this.rootEl
+          )
+        ) : (
+          <React.Fragment />
+        )}
       </Div>
     );
   }
@@ -253,6 +269,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   changeFontFamily: (
     value: ArgumentTypes<TextLayerStylesProps['onChangeFontFamily']>[0]
   ) => dispatch(changeStyle({ value, name: 'fontFamily' })),
+  changePreviewOverflow: (value: MenuProps['overflow']) =>
+    dispatch(changePreviewValue({ value, name: 'overflow' })),
   changePreviewValue: ({
     currentTarget: { checked, name, type, value }
   }: ArgumentTypes<InformationProps['onChange']>[0]) =>

@@ -1,7 +1,9 @@
 import ImagePreview, {
   ImagePreviewProps
 } from 'components/molecules/ImagePreview';
-import TextPreview from 'components/molecules/TextPreview';
+import TextPreview, {
+  TextPreviewProps
+} from 'components/molecules/TextPreview';
 import * as React from 'react';
 import ReactScalableDraggable from 'react-scalable-draggable';
 import styled from 'styled-components';
@@ -31,6 +33,19 @@ const Div = styled.div`
         position: relative;
         width: inherit;
 
+        &::before {
+          background-image: url(/images/grid.png);
+          background-repeat: repeat;
+          background-size: inherit;
+          content: '';
+          display: block;
+          height: 100%;
+          left: 0;
+          position: absolute;
+          top: 0;
+          width: 100%;
+        }
+
         .draggable {
           cursor: move;
           position: absolute;
@@ -41,29 +56,10 @@ const Div = styled.div`
   }
 `;
 
-interface TextLayer {
-  style: {
-    color: {
-      a: number;
-      b: number;
-      g: number;
-      r: number;
-    };
-    fontFamily: {
-      label: string;
-      value: string;
-    };
-    fontSize: number;
-    fontWeight: number;
-    lineHeight: number;
-    rotate: number;
-  };
-  value: string;
-}
-
 export interface PreviewProps {
-  layers: (ImagePreviewProps | TextLayer)[];
+  layers: (ImagePreviewProps | TextPreviewProps)[];
   preview: {
+    gridSize: number;
     height: number;
     overflow: boolean;
     scale: number;
@@ -73,9 +69,11 @@ export interface PreviewProps {
 
 const Preview: React.SFC<PreviewProps> = ({
   layers,
-  preview: { height, overflow, scale, width }
+  preview: { gridSize, height, overflow, scale, width }
 }) => {
-  const previews = layers.map((layer, index) => {
+  const previews = layers.map(layer => {
+    const { id } = layer;
+
     let node = <React.Fragment />;
 
     if ('value' in layer) {
@@ -87,7 +85,7 @@ const Preview: React.SFC<PreviewProps> = ({
     return (
       <ReactScalableDraggable
         className="draggable"
-        key={index}
+        key={id}
         parentScale={scale}
       >
         {node}
@@ -108,7 +106,10 @@ const Preview: React.SFC<PreviewProps> = ({
         <div id="capture">
           <div
             className="screen"
-            style={{ overflow: overflow ? 'visible' : 'hidden' }}
+            style={{
+              backgroundSize: `${gridSize}px`,
+              overflow: overflow ? 'visible' : 'hidden'
+            }}
           >
             {previews}
           </div>

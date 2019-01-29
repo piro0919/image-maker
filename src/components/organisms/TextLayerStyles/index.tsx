@@ -16,11 +16,11 @@ const Dl = styled.ul`
     margin-top: 5px;
 
     .select {
-      width: 200px;
+      width: 220px;
     }
 
     .input {
-      width: 75px;
+      width: 60px;
     }
 
     .picker .chrome-picker {

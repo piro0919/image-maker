@@ -1,6 +1,8 @@
+import Loading from 'components/templates/Loading';
 import domtoimage from 'dom-to-image';
 import { saveAs } from 'file-saver';
 import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import styled from 'styled-components';
 
 const Ul = styled.ul`
@@ -40,8 +42,7 @@ const Ul = styled.ul`
           align-items: center;
           display: flex;
           height: 24px;
-          margin: 0 10px;
-          min-width: 50px;
+          margin: 0 30px 0 15px;
           white-space: nowrap;
         }
       }
@@ -49,49 +50,95 @@ const Ul = styled.ul`
   }
 `;
 
-const Menu: React.SFC = () => (
-  <Ul>
-    <li>
-      <p>File</p>
-      <ul>
-        <li>
-          <button
-            onClick={() => {
-              domtoimage.toBlob(document.getElementById('test')!).then(blob => {
-                saveAs(blob, 'image.png');
-              });
-            }}
-          >
-            Save
-          </button>
-        </li>
-        {/* <li>
+export interface MenuProps {
+  changePreviewOverflow: (value: boolean) => void;
+  overflow: boolean;
+}
+
+interface MenuState {
+  isShowLoading: boolean;
+}
+
+class Menu extends React.Component<MenuProps, MenuState> {
+  rootEl: HTMLElement;
+
+  constructor(props: MenuProps) {
+    super(props);
+
+    this.rootEl = document.getElementById('root');
+    this.state = {
+      isShowLoading: false
+    };
+  }
+
+  componentDidUpdate({ overflow: prevOverflow }: MenuProps) {
+    const { changePreviewOverflow, overflow } = this.props;
+    const { isShowLoading } = this.state;
+
+    if (isShowLoading) {
+      if (overflow) {
+        changePreviewOverflow(false);
+
+        return;
+      }
+
+      domtoimage.toBlob(document.getElementById('capture')!).then(blob => {
+        saveAs(blob, 'image.png');
+
+        this.setState(
+          {
+            isShowLoading: false
+          },
+          () => {
+            if (prevOverflow) {
+              changePreviewOverflow(true);
+            }
+          }
+        );
+      });
+    }
+  }
+
+  render() {
+    const { isShowLoading } = this.state;
+
+    return (
+      <React.Fragment>
+        <Ul>
+          <li>
+            <p>File</p>
+            <ul>
+              <li>
+                <button
+                  onClick={() => {
+                    this.setState({ isShowLoading: true });
+                  }}
+                >
+                  Save
+                </button>
+              </li>
+              {/* <li>
           <p>Save As...</p>
         </li> */}
-      </ul>
-    </li>
-    <li>
-      <p>File</p>
-      <ul>
-        <li>
-          <button
-            onClick={() => {
-              domtoimage
-                .toBlob(document.getElementById('capture')!)
-                .then(blob => {
-                  saveAs(blob, 'image.png');
-                });
-            }}
-          >
-            Save
-          </button>
-        </li>
-        {/* <li>
-          <p>Save As...</p>
-        </li> */}
-      </ul>
-    </li>
-  </Ul>
-);
+            </ul>
+          </li>
+          <li>
+            <p>Help</p>
+            <ul>
+              <li>
+                <p>About Image Maker</p>
+              </li>
+            </ul>
+          </li>
+        </Ul>
+        {isShowLoading ? (
+          ReactDOM.createPortal(<Loading />, this.rootEl)
+        ) : (
+          <React.Fragment />
+        )}
+      </React.Fragment>
+    );
+  }
+}
 
 export default Menu;

@@ -1,6 +1,12 @@
 import * as React from 'react';
+import styled from 'styled-components';
+
+const Div = styled.div`
+  white-space: nowrap;
+`;
 
 export interface TextPreviewProps {
+  id: string;
   style: {
     color: {
       a: number;
@@ -31,7 +37,7 @@ const TextPreview: React.SFC<TextPreviewProps> = ({
   },
   value
 }: TextPreviewProps) => (
-  <div
+  <Div
     style={{
       fontFamily,
       fontWeight,
@@ -51,7 +57,7 @@ const TextPreview: React.SFC<TextPreviewProps> = ({
         {v}
       </div>
     ))}
-  </div>
+  </Div>
 );
 
 export default TextPreview;

@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as uniqid from 'uniqid';
 
 export interface ImagePreviewProps {
+  id: string;
   style: {
     opacity: number;
     rotate: number;

@@ -32,13 +32,46 @@ const Div = styled.div`
       margin-top: 15px;
     }
   }
+
+  .close-button {
+    height: 50px;
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    width: 50px;
+
+    &::before,
+    &::after {
+      background-color: #000;
+      display: block;
+      content: '';
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    &::before {
+      height: 1px;
+      width: 100%;
+    }
+
+    &::after {
+      height: 100%;
+      width: 1px;
+    }
+  }
 `;
 
 export interface DropzoneProps {
+  onClickCloseButton: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onDrop: ReactDropzoneProps['onDrop'];
 }
 
-const Dropzone: React.SFC<DropzoneProps> = ({ onDrop }: DropzoneProps) => (
+const Dropzone: React.SFC<DropzoneProps> = ({
+  onClickCloseButton,
+  onDrop
+}: DropzoneProps) => (
   <Div>
     <ReactDropzone accept="image/*" onDrop={onDrop}>
       {({ getRootProps, getInputProps, isDragActive }) => (
@@ -53,6 +86,7 @@ const Dropzone: React.SFC<DropzoneProps> = ({ onDrop }: DropzoneProps) => (
         </div>
       )}
     </ReactDropzone>
+    <button className="close-button" onClick={onClickCloseButton} />
   </Div>
 );
 

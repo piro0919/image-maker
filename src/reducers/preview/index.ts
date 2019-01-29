@@ -2,6 +2,7 @@ import changeValue from 'actions/preview/changeValue';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 
 export interface PreviewState {
+  gridSize: number;
   height: number;
   overflow: boolean;
   scale: number;
@@ -9,6 +10,7 @@ export interface PreviewState {
 }
 
 const initialState: PreviewState = {
+  gridSize: 0,
   height: 300,
   overflow: true,
   scale: 1,
@@ -20,7 +22,7 @@ const preview = reducerWithInitialState(initialState).case(
   (state, { name, value: newValue }) => {
     let value;
 
-    if (name === 'height' || name === 'width') {
+    if (name === 'gridSize' || name === 'height' || name === 'width') {
       value = parseInt(newValue as string, 10);
     } else if (name === 'scale') {
       value = parseFloat(newValue as string);

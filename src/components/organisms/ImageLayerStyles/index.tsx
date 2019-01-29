@@ -13,7 +13,7 @@ const Dl = styled.ul`
     margin-top: 5px;
 
     .input {
-      width: 75px;
+      width: 60px;
     }
   }
 `;
