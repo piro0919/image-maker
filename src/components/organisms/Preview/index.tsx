@@ -1,6 +1,7 @@
 import ImagePreview, {
   ImagePreviewProps
 } from 'components/molecules/ImagePreview';
+import TextPreview from 'components/molecules/TextPreview';
 import * as React from 'react';
 import ReactScalableDraggable from 'react-scalable-draggable';
 import styled from 'styled-components';
@@ -75,43 +76,12 @@ const Preview: React.SFC<PreviewProps> = ({
   preview: { height, overflow, scale, width }
 }) => {
   const previews = layers.map((layer, index) => {
-    const layerList = [];
+    let node = <React.Fragment />;
 
     if ('value' in layer) {
-      const {
-        style: {
-          color: { a, b, g, r },
-          fontFamily: { value: fontFamily },
-          fontSize,
-          lineHeight,
-          rotate,
-          ...style
-        },
-        value
-      } = layer;
-
-      value.split(/\r\n|\r|\n/).forEach((v, index) => {
-        layerList.push(
-          <div
-            key={index}
-            style={{
-              fontFamily,
-              color: `rgba(${r}, ${g}, ${b}, ${a})`,
-              fontSize: `${fontSize}px`,
-              height: `${lineHeight}px`,
-              lineHeight: `${lineHeight}px`,
-              transform: `rotate(${rotate}deg)`,
-              ...style
-            }}
-          >
-            {v}
-          </div>
-        );
-      });
+      node = <TextPreview {...layer} />;
     } else if ('url' in layer) {
-      const { style, url } = layer;
-
-      layerList.push(<ImagePreview key={url} style={style} url={url} />);
+      node = <ImagePreview {...layer} />;
     }
 
     return (
@@ -120,7 +90,7 @@ const Preview: React.SFC<PreviewProps> = ({
         key={index}
         parentScale={scale}
       >
-        {layerList}
+        {node}
       </ReactScalableDraggable>
     );
   });

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 const Ul = styled.ul`
   display: flex;
+  font-size: 1.2rem;
 
   > li {
     position: relative;

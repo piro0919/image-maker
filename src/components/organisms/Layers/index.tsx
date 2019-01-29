@@ -12,11 +12,12 @@ const Ul = styled.ul`
     padding: 2.5px;
 
     &.select {
-      border: solid red 1px;
+      border: solid #b33e5c 1px;
     }
 
     textarea {
       border: 1px solid #ddd;
+      font-size: 1.2rem;
       height: 50px;
       min-height: 50px;
       overflow-y: scroll;

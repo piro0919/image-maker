@@ -2,6 +2,7 @@ import Pages from 'containers/pages';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { createStore } from 'redux';
 import 'ress';
 import { createGlobalStyle } from 'styled-components';
@@ -55,7 +56,13 @@ const GlobalStyle = createGlobalStyle`
 
 ReactDOM.render(
   <Provider store={store}>
-    <Pages />
+    <BrowserRouter
+      basename={process.env.NODE_ENV === 'development' ? '' : '/image-maker'}
+    >
+      <Switch>
+        <Route component={Pages} exact={true} path="/" />
+      </Switch>
+    </BrowserRouter>
     <GlobalStyle />
   </Provider>,
   document.getElementById('root')

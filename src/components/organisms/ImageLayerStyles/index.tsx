@@ -40,7 +40,7 @@ const ImageLayerStyles: React.SFC<ImageLayerStylesProps> = ({
         min={0}
         name="opacity"
         onChange={onChange}
-        step={0.1}
+        step={0.01}
         type="number"
         value={opacity}
       />
