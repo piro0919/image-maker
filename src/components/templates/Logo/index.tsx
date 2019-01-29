@@ -55,7 +55,7 @@ class Logo extends React.Component<LogoProps> {
       <Div className="portal">
         <div className="wrapper">
           <img src={`${process.env.PUBLIC_URL}/images/top.png`} />
-          <p>fonts loading... {loading}%</p>
+          <p>font list loading... {loading}%</p>
         </div>
       </Div>
     );

@@ -24,8 +24,8 @@ const Dl = styled.ul`
     }
 
     .picker .chrome-picker {
-      background-color: #fff;
-      border: 1px #ddd solid;
+      background-color: #fff !important;
+      border: 1px #ddd solid !important;
       border-radius: 0 !important;
       box-shadow: none !important;
       font-family: inherit !important;
@@ -141,7 +141,7 @@ const TextLayerStyles: React.SFC<TextLayerStylesProps> = ({
         min={0}
         name="opacity"
         onChange={onChange}
-        step={0.1}
+        step={0.01}
         type="number"
         value={opacity}
       />

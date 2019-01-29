@@ -28,7 +28,6 @@ const Div = styled.div`
       width: inherit;
 
       .screen {
-        background-color: white;
         height: inherit;
         position: relative;
         width: inherit;
@@ -59,6 +58,12 @@ const Div = styled.div`
 export interface PreviewProps {
   layers: (ImagePreviewProps | TextPreviewProps)[];
   preview: {
+    backgroundColor: {
+      a: number;
+      b: number;
+      g: number;
+      r: number;
+    };
     gridSize: number;
     height: number;
     overflow: boolean;
@@ -69,7 +74,14 @@ export interface PreviewProps {
 
 const Preview: React.SFC<PreviewProps> = ({
   layers,
-  preview: { gridSize, height, overflow, scale, width }
+  preview: {
+    backgroundColor: { a, b, g, r },
+    gridSize,
+    height,
+    overflow,
+    scale,
+    width
+  }
 }) => {
   const previews = layers.map(layer => {
     const { id } = layer;
@@ -107,6 +119,7 @@ const Preview: React.SFC<PreviewProps> = ({
           <div
             className="screen"
             style={{
+              backgroundColor: `rgba(${r}, ${g}, ${b}, ${a})`,
               backgroundSize: `${gridSize}px`,
               overflow: overflow ? 'visible' : 'hidden'
             }}

@@ -2,6 +2,12 @@ import changeValue from 'actions/preview/changeValue';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 
 export interface PreviewState {
+  backgroundColor: {
+    a: number;
+    b: number;
+    g: number;
+    r: number;
+  };
   gridSize: number;
   height: number;
   overflow: boolean;
@@ -10,6 +16,12 @@ export interface PreviewState {
 }
 
 const initialState: PreviewState = {
+  backgroundColor: {
+    a: 1,
+    b: 255,
+    g: 255,
+    r: 255
+  },
   gridSize: 0,
   height: 300,
   overflow: true,

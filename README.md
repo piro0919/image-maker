@@ -11,6 +11,10 @@ Image Maker is a service that allows you to easily create images by combining le
 
 and more...
 
+## Recommended environment
+
+- Browser width is 1280px or more
+
 ## Usage fee
 
 Free! However, I am very happy to donate an amazon gift card.

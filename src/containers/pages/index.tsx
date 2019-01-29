@@ -100,7 +100,8 @@ class Pages extends React.Component<PagesProps, PagesState> {
     this.rootEl = document.getElementById('root');
     this.state = {
       isShowDropzone: false,
-      isShowLogo: true,
+      // isShowLogo: true,
+      isShowLogo: process.env.NODE_ENV !== 'development',
       loading: 0
     };
   }
@@ -179,6 +180,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
       addTextLayer,
       changeColor,
       changeFontFamily,
+      changePreviewBackgroundColor,
       changePreviewOverflow,
       changePreviewValue,
       changeStyle,
@@ -226,7 +228,11 @@ class Pages extends React.Component<PagesProps, PagesState> {
         <aside className="detail">{styles}</aside>
         <div className="preview">
           <Preview layers={layers} preview={preview} />
-          <Information {...preview} onChange={changePreviewValue} />
+          <Information
+            {...preview}
+            onChange={changePreviewValue}
+            onChangeBackgroundColor={changePreviewBackgroundColor}
+          />
         </div>
         <aside className="side-layers">
           <LayerSetting>
@@ -304,6 +310,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   changeFontFamily: (
     value: ArgumentTypes<TextLayerStylesProps['onChangeFontFamily']>[0]
   ) => dispatch(changeStyle({ value, name: 'fontFamily' })),
+  changePreviewBackgroundColor: ({
+    rgb: value
+  }: ArgumentTypes<TextLayerStylesProps['onChangeColor']>[0]) =>
+    dispatch(changePreviewValue({ value, name: 'backgroundColor' })),
   changePreviewOverflow: (value: MenuProps['overflow']) =>
     dispatch(changePreviewValue({ value, name: 'overflow' })),
   changePreviewValue: ({
