@@ -87,7 +87,7 @@ class Dropzone extends React.Component<DropzoneProps> {
           {({ getRootProps, getInputProps, isDragActive }) => (
             <div {...getRootProps()} className="wrapper">
               <input {...getInputProps()} />
-              <img src="/images/dd.png" />
+              <img src={`${process.env.PUBLIC_URL}/images/dd.png`} />
               <p>
                 {isDragActive
                   ? 'Drop files here...'

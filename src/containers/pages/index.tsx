@@ -105,9 +105,9 @@ class Pages extends React.Component<PagesProps, PagesState> {
     const { setFonts } = this.props;
     const request = new XMLHttpRequest();
 
-    console.log(process.env);
+    console.log(process.env.PUBLIC_URL);
 
-    request.open('GET', '/jsons/fonts.json', true);
+    request.open('GET', `${process.env.PUBLIC_URL}/jsons/fonts.json`, true);
     request.responseType = 'blob';
     request.onload = ({ target: { response } }: any) => {
       const reader = new FileReader();
