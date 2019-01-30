@@ -88,8 +88,27 @@ class Menu extends React.Component<MenuProps, MenuState> {
         return;
       }
 
-      domtoimage.toBlob(document.getElementById('capture')!).then(blob => {
-        saveAs(blob, 'image.png');
+      // domtoimage.toBlob(document.getElementById('capture')!).then(blob => {
+      //   saveAs(blob, 'image.png');
+
+      //   this.setState(
+      //     {
+      //       isShowLoading: false
+      //     },
+      //     () => {
+      //       if (prevOverflow) {
+      //         changePreviewOverflow(true);
+      //       }
+      //     }
+      //   );
+      // });
+
+      domtoimage.toPng(document.getElementById('capture')!).then(dataUrl => {
+        const img = new Image();
+
+        img.src = dataUrl;
+
+        document.body.appendChild(img);
 
         this.setState(
           {

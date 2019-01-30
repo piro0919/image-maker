@@ -26,7 +26,7 @@ import TextLayerStyles, {
 } from 'components/organisms/TextLayerStyles';
 import Dropzone, { DropzoneProps } from 'components/templates/Dropzone';
 import Logo from 'components/templates/Logo';
-import * as $ from 'jquery';
+// import * as $ from 'jquery';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
@@ -117,46 +117,78 @@ class Pages extends React.Component<PagesProps, PagesState> {
 
       reader.onload = ({ target: { result } }: any) => {
         const fonts: Font[] = JSON.parse(result);
+        const style = document.createElement('style');
 
         let counter = 0;
 
         setFonts(fonts);
 
-        $('head').append(
-          `<style type="text/css">${fonts
-            .map(
-              ({ fontFamily }) =>
-                `@font-face {font-family: '${fontFamily}';src: url('${
-                  process.env.PUBLIC_URL
-                }/fonts/${fontFamily}.woff2') format('woff2'),url('${
-                  process.env.PUBLIC_URL
-                }/fonts/${fontFamily}.woff') format('woff'),url('${
-                  process.env.PUBLIC_URL
-                }/fonts/${fontFamily}.ttf') format('truetype');}`
-            )
-            .join('')}</style>`
+        style.appendChild(
+          document.createTextNode(
+            fonts
+              .map(
+                ({ fontFamily }) =>
+                  `@font-face {font-family: '${fontFamily}';src: url('${
+                    process.env.PUBLIC_URL
+                  }/fonts/${fontFamily}.woff2') format('woff2'),url('${
+                    process.env.PUBLIC_URL
+                  }/fonts/${fontFamily}.woff') format('woff'),url('${
+                    process.env.PUBLIC_URL
+                  }/fonts/${fontFamily}.ttf') format('truetype');}`
+              )
+              .join('')
+          )
         );
+
+        document.head.appendChild(style);
 
         WebFont.load({
           active: () => {
             setTimeout(() => {
-              this.setState({ isShowLogo: false });
+              this.setState({ isShowLogo: false, loading: 100 }, () => {
+                if (process.env.NODE_ENV !== 'development') {
+                  return;
+                }
+
+                console.log('active');
+              });
             }, 1000);
           },
-          custom: { families: fonts.map(({ fontFamily }) => fontFamily) },
-          fontactive: () => {
-            counter = counter + 1;
-
-            this.setState({
-              loading: Math.ceil((counter / fonts.length) * 100)
-            });
+          classes: false,
+          custom: {
+            families: fonts.map(({ fontFamily }) => fontFamily)
           },
-          fontinactive: () => {
+          fontactive: (familyName: string, fvd: string) => {
             counter = counter + 1;
 
-            this.setState({
-              loading: Math.ceil((counter / fonts.length) * 100)
-            });
+            this.setState(
+              {
+                loading: Math.floor((counter / fonts.length) * 100)
+              },
+              () => {
+                if (process.env.NODE_ENV !== 'development') {
+                  return;
+                }
+
+                console.log('fontactive', familyName, fvd);
+              }
+            );
+          },
+          fontinactive: (familyName: string, fvd: string) => {
+            counter = counter + 1;
+
+            this.setState(
+              {
+                loading: Math.floor((counter / fonts.length) * 100)
+              },
+              () => {
+                if (process.env.NODE_ENV !== 'development') {
+                  return;
+                }
+
+                console.log('fontinactive', familyName, fvd);
+              }
+            );
           }
         });
       };

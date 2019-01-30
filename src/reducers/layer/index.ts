@@ -82,8 +82,8 @@ const layer = reducerWithInitialState(initialState)
           r: 0
         },
         fontFamily: {
-          label: '機械彫刻用標準書体 M',
-          value: 'KikaiChokokuJIS-Md'
+          label: 'バンバン',
+          value: 'BANBAN-FREE'
         },
         fontSize: 16,
         fontWeight: 400,
