@@ -78,8 +78,8 @@
     "workbox-webpack-plugin": "3.6.3"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
+    "start": "node scripts/generate-css.js & node scripts/start.js",
+    "build": "node scripts/build.js & node scripts/generate-css2.js",
     "test": "node scripts/test.js"
   },
   "browserslist": [

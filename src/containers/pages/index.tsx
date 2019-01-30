@@ -26,7 +26,6 @@ import TextLayerStyles, {
 } from 'components/organisms/TextLayerStyles';
 import Dropzone, { DropzoneProps } from 'components/templates/Dropzone';
 import Logo from 'components/templates/Logo';
-// import * as $ from 'jquery';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
@@ -100,8 +99,8 @@ class Pages extends React.Component<PagesProps, PagesState> {
     this.rootEl = document.getElementById('root');
     this.state = {
       isShowDropzone: false,
-      // isShowLogo: true,
-      isShowLogo: process.env.NODE_ENV !== 'development',
+      isShowLogo: true,
+      // isShowLogo: process.env.NODE_ENV !== 'development',
       loading: 0
     };
   }
@@ -157,6 +156,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
           classes: false,
           custom: {
             families: fonts.map(({ fontFamily }) => fontFamily)
+            // urls: [`${process.env.PUBLIC_URL}/styles/fonts.css`]
           },
           fontactive: (familyName: string, fvd: string) => {
             counter = counter + 1;

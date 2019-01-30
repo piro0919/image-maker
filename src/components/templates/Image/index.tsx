@@ -14,32 +14,13 @@ const Div = styled.div`
   top: 0;
   width: 100%;
   z-index: 9999;
-
-  .wrapper {
-    height: 360px;
-    position: relative;
-    width: 640px;
-
-    img {
-      height: 100%;
-      width: 100%;
-    }
-
-    p {
-      bottom: 80px;
-      color: #ef64a0;
-      font-size: 1.2em;
-      position: absolute;
-      right: 30px;
-    }
-  }
 `;
 
-export interface LogoProps {
-  loading: number;
+export interface ImageProps {
+  src: string;
 }
 
-class Logo extends React.Component<LogoProps> {
+class Image extends React.Component<ImageProps> {
   componentDidMount() {
     $('#root > div:not(.portal)').css('filter', 'blur(2.5px)');
   }
@@ -49,17 +30,14 @@ class Logo extends React.Component<LogoProps> {
   }
 
   render() {
-    const { loading } = this.props;
+    const { src } = this.props;
 
     return (
       <Div className="portal">
-        <div className="wrapper">
-          <img src={`${process.env.PUBLIC_URL}/images/top.png`} />
-          <p>loading... {loading}%</p>
-        </div>
+        <img src={src} />
       </Div>
     );
   }
 }
 
-export default Logo;
+export default Image;

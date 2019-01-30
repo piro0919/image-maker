@@ -1,3 +1,4 @@
+import Image from 'components/templates/Image';
 import Loading from 'components/templates/Loading';
 import domtoimage from 'dom-to-image';
 import { saveAs } from 'file-saver';
@@ -62,6 +63,7 @@ export interface MenuProps {
 }
 
 interface MenuState {
+  imageUrl: string;
   isShowLoading: boolean;
 }
 
@@ -73,6 +75,7 @@ class Menu extends React.Component<MenuProps, MenuState> {
 
     this.rootEl = document.getElementById('root');
     this.state = {
+      imageUrl: '',
       isShowLoading: false
     };
   }
@@ -103,15 +106,10 @@ class Menu extends React.Component<MenuProps, MenuState> {
       //   );
       // });
 
-      domtoimage.toPng(document.getElementById('capture')!).then(dataUrl => {
-        const img = new Image();
-
-        img.src = dataUrl;
-
-        document.body.appendChild(img);
-
+      domtoimage.toPng(document.getElementById('capture')!).then(imageUrl => {
         this.setState(
           {
+            imageUrl,
             isShowLoading: false
           },
           () => {
@@ -125,7 +123,7 @@ class Menu extends React.Component<MenuProps, MenuState> {
   }
 
   render() {
-    const { isShowLoading } = this.state;
+    const { imageUrl, isShowLoading } = this.state;
 
     return (
       <React.Fragment>
@@ -164,6 +162,11 @@ class Menu extends React.Component<MenuProps, MenuState> {
             </ul>
           </li>
         </Ul>
+        {imageUrl ? (
+          ReactDOM.createPortal(<Image src={imageUrl} />, this.rootEl)
+        ) : (
+          <React.Fragment />
+        )}
         {isShowLoading ? (
           ReactDOM.createPortal(<Loading />, this.rootEl)
         ) : (
