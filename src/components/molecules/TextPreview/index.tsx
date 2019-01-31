@@ -1,7 +1,21 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
+interface DivProps {
+  fontFamily: string;
+}
+
 const Div = styled.div`
+  @font-face {
+    font-family: '${({ fontFamily }: DivProps) => fontFamily}';
+    src: url('${process.env.PUBLIC_URL}/fonts/${({ fontFamily }: DivProps) =>
+  fontFamily}.woff2') format('woff2'),
+      url('${process.env.PUBLIC_URL}/fonts/${({ fontFamily }: DivProps) =>
+  fontFamily}.woff') format('woff'),
+      url('${process.env.PUBLIC_URL}/fonts/${({ fontFamily }: DivProps) =>
+  fontFamily}.ttf') format('truetype');
+  }
+
   white-space: nowrap;
 `;
 
@@ -40,6 +54,7 @@ const TextPreview: React.SFC<TextPreviewProps> = ({
   value
 }: TextPreviewProps) => (
   <Div
+    fontFamily={fontFamily}
     style={{
       fontFamily,
       fontWeight,

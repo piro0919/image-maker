@@ -45,11 +45,11 @@ const Div = styled.div`
   .header {
     border-bottom: 1px #ddd inset;
     grid-column: 1 / 4;
+    z-index: 2;
   }
 
   .detail {
     overflow-y: scroll;
-    padding: 5px 10px;
   }
 
   .preview {
@@ -99,8 +99,8 @@ class Pages extends React.Component<PagesProps, PagesState> {
     this.rootEl = document.getElementById('root');
     this.state = {
       isShowDropzone: false,
-      isShowLogo: true,
-      // isShowLogo: process.env.NODE_ENV !== 'development',
+      // isShowLogo: true,
+      isShowLogo: process.env.NODE_ENV !== 'development',
       loading: 0
     };
   }
@@ -116,79 +116,39 @@ class Pages extends React.Component<PagesProps, PagesState> {
 
       reader.onload = ({ target: { result } }: any) => {
         const fonts: Font[] = JSON.parse(result);
-        const style = document.createElement('style');
 
         let counter = 0;
 
         setFonts(fonts);
 
-        style.appendChild(
-          document.createTextNode(
-            fonts
-              .map(
-                ({ fontFamily }) =>
-                  `@font-face {font-family: '${fontFamily}';src: url('${
-                    process.env.PUBLIC_URL
-                  }/fonts/${fontFamily}.woff2') format('woff2'),url('${
-                    process.env.PUBLIC_URL
-                  }/fonts/${fontFamily}.woff') format('woff'),url('${
-                    process.env.PUBLIC_URL
-                  }/fonts/${fontFamily}.ttf') format('truetype');}`
-              )
-              .join('')
-          )
-        );
-
-        document.head.appendChild(style);
-
         WebFont.load({
           active: () => {
             setTimeout(() => {
-              this.setState({ isShowLogo: false, loading: 100 }, () => {
-                if (process.env.NODE_ENV !== 'development') {
-                  return;
-                }
-
-                console.log('active');
-              });
+              this.setState({ isShowLogo: false, loading: 100 });
             }, 1000);
           },
           classes: false,
           custom: {
             families: fonts.map(({ fontFamily }) => fontFamily)
-            // urls: [`${process.env.PUBLIC_URL}/styles/fonts.css`]
           },
           fontactive: (familyName: string, fvd: string) => {
             counter = counter + 1;
 
-            this.setState(
-              {
-                loading: Math.floor((counter / fonts.length) * 100)
-              },
-              () => {
-                if (process.env.NODE_ENV !== 'development') {
-                  return;
-                }
-
-                console.log('fontactive', familyName, fvd);
-              }
-            );
+            this.setState({
+              loading: Math.floor((counter / fonts.length) * 100)
+            });
           },
           fontinactive: (familyName: string, fvd: string) => {
             counter = counter + 1;
 
-            this.setState(
-              {
-                loading: Math.floor((counter / fonts.length) * 100)
-              },
-              () => {
-                if (process.env.NODE_ENV !== 'development') {
-                  return;
-                }
-
-                console.log('fontinactive', familyName, fvd);
-              }
-            );
+            this.setState({
+              loading: Math.floor((counter / fonts.length) * 100)
+            });
+          },
+          inactive: () => {
+            setTimeout(() => {
+              this.setState({ isShowLogo: false, loading: 100 });
+            }, 1000);
           }
         });
       };

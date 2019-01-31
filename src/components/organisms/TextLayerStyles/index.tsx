@@ -1,38 +1,29 @@
 import Input from 'components/atoms/Input';
+import LayerStyles from 'components/molecules/LayerStyles';
 import * as React from 'react';
 import { ChromePicker, ColorResult } from 'react-color';
 import Select from 'react-select';
 import { Props } from 'react-select/lib/Select';
 import styled from 'styled-components';
 
-const Dl = styled.ul`
-  dt:not(:first-child) {
-    margin-top: 10px;
+const StyledLayerStyles = styled(LayerStyles)`
+  .select {
+    width: 200px;
   }
 
-  dd {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 5px;
+  .input {
+    width: 50px;
+  }
 
-    .select {
-      width: 220px;
-    }
+  .picker .chrome-picker {
+    background-color: #fff !important;
+    border: 1px #ddd solid !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    font-family: inherit !important;
 
-    .input {
-      width: 60px;
-    }
-
-    .picker .chrome-picker {
-      background-color: #fff !important;
-      border: 1px #ddd solid !important;
+    > div {
       border-radius: 0 !important;
-      box-shadow: none !important;
-      font-family: inherit !important;
-
-      > div {
-        border-radius: 0 !important;
-      }
     }
   }
 `;
@@ -77,88 +68,110 @@ const TextLayerStyles: React.SFC<TextLayerStylesProps> = ({
   opacity,
   rotate
 }: TextLayerStylesProps) => (
-  <Dl>
-    <dt>color</dt>
-    <dd>
-      <div className="picker">
-        <ChromePicker color={color} onChange={onChangeColor} />
-      </div>
-    </dd>
-    <dt>font-family</dt>
-    <dd>
-      <Select
-        className="select"
-        onChange={onChangeFontFamily}
-        options={fonts.map(({ fontFamily: value, name: label }) => ({
-          label,
-          value
-        }))}
-        value={fontFamily}
-      />
-    </dd>
-    <dt>font-size</dt>
-    <dd>
-      <Input
-        className="input"
-        min={0}
-        name="fontSize"
-        onChange={onChange}
-        type="number"
-        value={fontSize}
-      />
-      px
-    </dd>
-    <dt>font-weight</dt>
-    <dd>
-      <Input
-        className="input"
-        max={900}
-        min={100}
-        name="fontWeight"
-        onChange={onChange}
-        step={100}
-        type="number"
-        value={fontWeight}
-      />
-    </dd>
-    <dt>line-height</dt>
-    <dd>
-      <Input
-        className="input"
-        min={0}
-        name="lineHeight"
-        onChange={onChange}
-        type="number"
-        value={lineHeight}
-      />
-      px
-    </dd>
-    <dt>opacity</dt>
-    <dd>
-      <Input
-        className="input"
-        max={1}
-        min={0}
-        name="opacity"
-        onChange={onChange}
-        step={0.01}
-        type="number"
-        value={opacity}
-      />
-    </dd>
-    <dt>rotate</dt>
-    <dd>
-      <Input
-        className="input"
-        name="rotate"
-        onChange={onChange}
-        step={0.1}
-        type="number"
-        value={rotate}
-      />
-      deg
-    </dd>
-  </Dl>
+  <StyledLayerStyles>
+    {[
+      {
+        name: 'color',
+        node: (
+          <div className="picker">
+            <ChromePicker color={color} onChange={onChangeColor} />
+          </div>
+        )
+      },
+      {
+        name: 'font-family',
+        node: (
+          <Select
+            className="select"
+            onChange={onChangeFontFamily}
+            options={fonts.map(({ fontFamily: value, name: label }) => ({
+              label,
+              value
+            }))}
+            value={fontFamily}
+          />
+        )
+      },
+      {
+        name: 'font-size',
+        node: (
+          <React.Fragment>
+            <Input
+              className="input"
+              min={0}
+              name="fontSize"
+              onChange={onChange}
+              type="number"
+              value={fontSize}
+            />
+            px
+          </React.Fragment>
+        )
+      },
+      {
+        name: 'font-weight',
+        node: (
+          <Input
+            className="input"
+            max={900}
+            min={100}
+            name="fontWeight"
+            onChange={onChange}
+            step={100}
+            type="number"
+            value={fontWeight}
+          />
+        )
+      },
+      {
+        name: 'line-height',
+        node: (
+          <React.Fragment>
+            <Input
+              className="input"
+              min={0}
+              name="lineHeight"
+              onChange={onChange}
+              type="number"
+              value={lineHeight}
+            />
+            px
+          </React.Fragment>
+        )
+      },
+      {
+        name: 'opacity',
+        node: (
+          <Input
+            className="input"
+            max={1}
+            min={0}
+            name="opacity"
+            onChange={onChange}
+            step={0.01}
+            type="number"
+            value={opacity}
+          />
+        )
+      },
+      {
+        name: 'rotate',
+        node: (
+          <React.Fragment>
+            <Input
+              className="input"
+              name="rotate"
+              onChange={onChange}
+              step={0.1}
+              type="number"
+              value={rotate}
+            />
+            deg
+          </React.Fragment>
+        )
+      }
+    ]}
+  </StyledLayerStyles>
 );
 
 export default TextLayerStyles;

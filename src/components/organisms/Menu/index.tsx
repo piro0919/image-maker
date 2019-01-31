@@ -1,14 +1,12 @@
-import Image from 'components/templates/Image';
+import Image, { ImageProps } from 'components/templates/Image';
 import Loading from 'components/templates/Loading';
 import domtoimage from 'dom-to-image';
-import { saveAs } from 'file-saver';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import styled from 'styled-components';
 
 const Ul = styled.ul`
   display: flex;
-  font-size: 1.2rem;
 
   > li {
     position: relative;
@@ -63,6 +61,7 @@ export interface MenuProps {
 }
 
 interface MenuState {
+  extension?: ImageProps['extension'];
   imageUrl: string;
   isShowLoading: boolean;
 }
@@ -75,6 +74,7 @@ class Menu extends React.Component<MenuProps, MenuState> {
 
     this.rootEl = document.getElementById('root');
     this.state = {
+      extension: undefined,
       imageUrl: '',
       isShowLoading: false
     };
@@ -82,7 +82,7 @@ class Menu extends React.Component<MenuProps, MenuState> {
 
   componentDidUpdate({ overflow: prevOverflow }: MenuProps) {
     const { changePreviewOverflow, overflow } = this.props;
-    const { isShowLoading } = this.state;
+    const { extension, isShowLoading } = this.state;
 
     if (isShowLoading) {
       if (overflow) {
@@ -91,22 +91,7 @@ class Menu extends React.Component<MenuProps, MenuState> {
         return;
       }
 
-      // domtoimage.toBlob(document.getElementById('capture')!).then(blob => {
-      //   saveAs(blob, 'image.png');
-
-      //   this.setState(
-      //     {
-      //       isShowLoading: false
-      //     },
-      //     () => {
-      //       if (prevOverflow) {
-      //         changePreviewOverflow(true);
-      //       }
-      //     }
-      //   );
-      // });
-
-      domtoimage.toPng(document.getElementById('capture')!).then(imageUrl => {
+      const callback = (imageUrl: string) => {
         this.setState(
           {
             imageUrl,
@@ -118,12 +103,24 @@ class Menu extends React.Component<MenuProps, MenuState> {
             }
           }
         );
-      });
+      };
+
+      if (extension === 'jpg') {
+        domtoimage.toJpeg(document.getElementById('capture')!).then(callback);
+      }
+
+      if (extension === 'png') {
+        domtoimage.toPng(document.getElementById('capture')!).then(callback);
+      }
+
+      if (extension === 'svg') {
+        domtoimage.toSvg(document.getElementById('capture')!).then(callback);
+      }
     }
   }
 
   render() {
-    const { imageUrl, isShowLoading } = this.state;
+    const { extension, imageUrl, isShowLoading } = this.state;
 
     return (
       <React.Fragment>
@@ -134,15 +131,30 @@ class Menu extends React.Component<MenuProps, MenuState> {
               <li>
                 <button
                   onClick={() => {
-                    this.setState({ isShowLoading: true });
+                    this.setState({ extension: 'jpg', isShowLoading: true });
                   }}
                 >
-                  Save
+                  Save As JPG
                 </button>
               </li>
-              {/* <li>
-          <p>Save As...</p>
-        </li> */}
+              <li>
+                <button
+                  onClick={() => {
+                    this.setState({ extension: 'png', isShowLoading: true });
+                  }}
+                >
+                  Save As PNG
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => {
+                    this.setState({ extension: 'svg', isShowLoading: true });
+                  }}
+                >
+                  Save As SVG
+                </button>
+              </li>
             </ul>
           </li>
           <li>
@@ -156,14 +168,20 @@ class Menu extends React.Component<MenuProps, MenuState> {
                   GitHub
                 </a>
               </li>
-              {/* <li>
-                <p>About Image Maker</p>
-              </li> */}
             </ul>
           </li>
         </Ul>
-        {imageUrl ? (
-          ReactDOM.createPortal(<Image src={imageUrl} />, this.rootEl)
+        {extension && imageUrl ? (
+          ReactDOM.createPortal(
+            <Image
+              extension={extension}
+              onClickCloseButton={() => {
+                this.setState({ extension: undefined, imageUrl: '' });
+              }}
+              src={imageUrl}
+            />,
+            this.rootEl
+          )
         ) : (
           <React.Fragment />
         )}

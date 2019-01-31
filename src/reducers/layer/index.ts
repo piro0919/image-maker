@@ -19,6 +19,18 @@ interface ImageLayer {
   url: string;
 }
 
+interface TextShadow {
+  blurRadius: number;
+  color: {
+    a: number;
+    b: number;
+    g: number;
+    r: number;
+  };
+  hShadow: number;
+  vShadow: number;
+}
+
 interface TextLayer {
   id: string;
   style: {
@@ -37,6 +49,7 @@ interface TextLayer {
     lineHeight: number;
     opacity: number;
     rotate: number;
+    textShadows: TextShadow[];
   };
   value: string;
 }
@@ -89,7 +102,8 @@ const layer = reducerWithInitialState(initialState)
         fontWeight: 400,
         lineHeight: 16,
         opacity: 1,
-        rotate: 0
+        rotate: 0,
+        textShadows: []
       },
       value: ''
     });

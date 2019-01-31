@@ -21,7 +21,7 @@ const Div = styled.div`
       margin-left: 5px;
 
       .input {
-        width: 60px;
+        width: 50px;
       }
 
       .background-color {

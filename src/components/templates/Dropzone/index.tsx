@@ -1,3 +1,4 @@
+import CloseButton, { CloseButtonProps } from 'components/atoms/CloseButton';
 import * as $ from 'jquery';
 import * as React from 'react';
 import ReactDropzone, {
@@ -40,32 +41,11 @@ const Div = styled.div`
     right: 10px;
     top: 10px;
     width: 50px;
-
-    &::before,
-    &::after {
-      background-color: #000;
-      display: block;
-      content: '';
-      left: 50%;
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%) rotate(45deg);
-    }
-
-    &::before {
-      height: 1px;
-      width: 100%;
-    }
-
-    &::after {
-      height: 100%;
-      width: 1px;
-    }
   }
 `;
 
 export interface DropzoneProps {
-  onClickCloseButton: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onClickCloseButton: CloseButtonProps['onClick'];
   onDrop: ReactDropzoneProps['onDrop'];
 }
 
@@ -96,7 +76,7 @@ class Dropzone extends React.Component<DropzoneProps> {
             </div>
           )}
         </ReactDropzone>
-        <button className="close-button" onClick={onClickCloseButton} />
+        <CloseButton className="close-button" onClick={onClickCloseButton} />
       </Div>
     );
   }
