@@ -1,20 +1,8 @@
-import * as $ from 'jquery';
+import Portal from 'components/templates/Portal';
 import * as React from 'react';
 import styled from 'styled-components';
 
-const Div = styled.div`
-  align-items: center;
-  background-color: rgba(255, 255, 255, 0.75);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: center;
-  left: 0;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 9999;
-
+const StyledPortal = styled(Portal)`
   .wrapper {
     height: 360px;
     position: relative;
@@ -39,27 +27,13 @@ export interface LogoProps {
   loading: number;
 }
 
-class Logo extends React.Component<LogoProps> {
-  componentDidMount() {
-    $('#root > div:not(.portal)').css('filter', 'blur(2.5px)');
-  }
-
-  componentWillUnmount() {
-    $('#root > div:not(.portal)').css('filter', 'blur(0)');
-  }
-
-  render() {
-    const { loading } = this.props;
-
-    return (
-      <Div className="portal">
-        <div className="wrapper">
-          <img src={`${process.env.PUBLIC_URL}/images/top.png`} />
-          <p>loading... {loading}%</p>
-        </div>
-      </Div>
-    );
-  }
-}
+const Logo: React.SFC<LogoProps> = ({ loading }: LogoProps) => (
+  <StyledPortal>
+    <div className="wrapper">
+      <img src={`${process.env.PUBLIC_URL}/images/top.png`} />
+      <p>loading... {loading}%</p>
+    </div>
+  </StyledPortal>
+);
 
 export default Logo;

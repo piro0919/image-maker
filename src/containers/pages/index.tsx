@@ -173,6 +173,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
       changeColor,
       changeFontFamily,
       changePreviewBackgroundColor,
+      changePreviewIsInitialize,
       changePreviewOverflow,
       changePreviewValue,
       changeStyle,
@@ -187,6 +188,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
       upLayer
     } = this.props;
     const { isShowDropzone, isShowLogo, loading } = this.state;
+    const { isInitialize } = preview;
 
     let styles = <React.Fragment />;
 
@@ -215,7 +217,13 @@ class Pages extends React.Component<PagesProps, PagesState> {
     return (
       <Div>
         <header className="header">
-          <Menu {...preview} changePreviewOverflow={changePreviewOverflow} />
+          <Menu
+            {...preview}
+            changePreviewOverflow={changePreviewOverflow}
+            onChangePreviewBackgroundColor={changePreviewBackgroundColor}
+            changePreviewIsInitialize={changePreviewIsInitialize}
+            onChangePreviewValue={changePreviewValue}
+          />
         </header>
         <aside className="detail">{styles}</aside>
         <div className="preview">
@@ -229,25 +237,34 @@ class Pages extends React.Component<PagesProps, PagesState> {
         <aside className="side-layers">
           <LayerSetting>
             {[
-              <DocumentAddButton key="add" onClick={addTextLayer} />,
+              <DocumentAddButton
+                disabled={!isInitialize}
+                key="add"
+                onClick={addTextLayer}
+              />,
               <DocumentDeleteButton
-                disabled={index === undefined}
+                disabled={!isInitialize || index === undefined}
                 key="delete"
                 onClick={removeLayer}
               />,
               <ImageButton
+                disabled={!isInitialize}
                 key="image"
                 onClick={() => {
                   this.setState({ isShowDropzone: true });
                 }}
               />,
               <ArrowUpOutlineButton
-                disabled={index === undefined || index === layers.length - 1}
+                disabled={
+                  !isInitialize ||
+                  index === undefined ||
+                  index === layers.length - 1
+                }
                 key="up"
                 onClick={upLayer}
               />,
               <ArrowDownOutlineButton
-                disabled={!index}
+                disabled={!isInitialize || !index}
                 key="down"
                 onClick={downLayer}
               />
@@ -263,7 +280,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
             />
           </div>
         </aside>
-        {isShowDropzone ? (
+        {isShowDropzone &&
           ReactDOM.createPortal(
             <Dropzone
               onClickCloseButton={() => {
@@ -272,15 +289,9 @@ class Pages extends React.Component<PagesProps, PagesState> {
               onDrop={addImageLayers}
             />,
             this.rootEl
-          )
-        ) : (
-          <React.Fragment />
-        )}
-        {isShowLogo ? (
-          ReactDOM.createPortal(<Logo loading={loading} />, this.rootEl)
-        ) : (
-          <React.Fragment />
-        )}
+          )}
+        {isShowLogo &&
+          ReactDOM.createPortal(<Logo loading={loading} />, this.rootEl)}
       </Div>
     );
   }
@@ -306,6 +317,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     rgb: value
   }: ArgumentTypes<TextLayerStylesProps['onChangeColor']>[0]) =>
     dispatch(changePreviewValue({ value, name: 'backgroundColor' })),
+  changePreviewIsInitialize: (
+    value: ArgumentTypes<MenuProps['changePreviewIsInitialize']>[0]
+  ) => dispatch(changePreviewValue({ value, name: 'isInitialize' })),
   changePreviewOverflow: (value: MenuProps['overflow']) =>
     dispatch(changePreviewValue({ value, name: 'overflow' })),
   changePreviewValue: ({

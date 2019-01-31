@@ -66,6 +66,7 @@ export interface PreviewProps {
     };
     gridSize: number;
     height: number;
+    isInitialize: boolean;
     overflow: boolean;
     scale: number;
     width: number;
@@ -78,6 +79,7 @@ const Preview: React.SFC<PreviewProps> = ({
     backgroundColor: { a, b, g, r },
     gridSize,
     height,
+    isInitialize,
     overflow,
     scale,
     width
@@ -116,16 +118,18 @@ const Preview: React.SFC<PreviewProps> = ({
         }}
       >
         <div id="capture">
-          <div
-            className="screen"
-            style={{
-              backgroundColor: `rgba(${r}, ${g}, ${b}, ${a})`,
-              backgroundSize: `${gridSize}px`,
-              overflow: overflow ? 'visible' : 'hidden'
-            }}
-          >
-            {previews}
-          </div>
+          {isInitialize && (
+            <div
+              className="screen"
+              style={{
+                backgroundColor: `rgba(${r}, ${g}, ${b}, ${a})`,
+                backgroundSize: `${gridSize}px`,
+                overflow: overflow ? 'visible' : 'hidden'
+              }}
+            >
+              {previews}
+            </div>
+          )}
         </div>
       </div>
     </Div>

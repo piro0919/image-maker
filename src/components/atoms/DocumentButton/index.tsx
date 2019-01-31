@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { TiImage } from 'react-icons/ti';
+import { TiDocument } from 'react-icons/ti';
 import styled from 'styled-components';
+import { string } from 'prop-types';
 
 const Button = styled.button`
   height: 100%;
@@ -11,21 +12,24 @@ const Button = styled.button`
   }
 
   .icon {
-    color: white;
+    color: black;
     height: 100%;
     width: 100%;
   }
 `;
 
-export interface ImageButtonProps {
+export interface DocumentButtonProps {
+  className?: string;
   disabled: boolean;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const ImageButton: React.SFC<ImageButtonProps> = (props: ImageButtonProps) => (
+const DocumentButton: React.SFC<DocumentButtonProps> = (
+  props: DocumentButtonProps
+) => (
   <Button {...props}>
-    <TiImage className="icon" />
+    <TiDocument className="icon" />
   </Button>
 );
 
-export default ImageButton;
+export default DocumentButton;

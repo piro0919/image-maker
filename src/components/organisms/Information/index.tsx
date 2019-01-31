@@ -70,6 +70,7 @@ export interface InformationProps {
   };
   gridSize: number;
   height: number;
+  isInitialize: boolean;
   onChange: InputProps['onChange'];
   onChangeBackgroundColor: (color: ColorResult) => void;
   overflow: boolean;
@@ -81,6 +82,7 @@ const Information: React.SFC<InformationProps> = ({
   backgroundColor,
   gridSize,
   height,
+  isInitialize,
   onChange,
   onChangeBackgroundColor,
   overflow,
@@ -91,81 +93,83 @@ const Information: React.SFC<InformationProps> = ({
 
   return (
     <Div>
-      <dl>
-        <dt>width</dt>
-        <dd>
-          <Input
-            className="input"
-            min={0}
-            name="width"
-            onChange={onChange}
-            type="number"
-            value={width}
-          />
-          px
-        </dd>
-        <dt>height</dt>
-        <dd>
-          <Input
-            className="input"
-            min={0}
-            name="height"
-            onChange={onChange}
-            type="number"
-            value={height}
-          />
-          px
-        </dd>
-        <dt>scale</dt>
-        <dd>
-          <Input
-            className="input"
-            min={0}
-            name="scale"
-            onChange={onChange}
-            step={0.1}
-            type="number"
-            value={scale}
-          />
-          px
-        </dd>
-        <dt>grid-size</dt>
-        <dd>
-          <Input
-            className="input"
-            max={500}
-            min={0}
-            name="gridSize"
-            onChange={onChange}
-            type="number"
-            value={gridSize}
-          />
-          px
-        </dd>
-        <dt>background-color</dt>
-        <dd>
-          <div
-            className="background-color"
-            style={{ backgroundColor: `rgba(${r},${g}, ${b},${a})` }}
-          >
-            <div className="picker">
-              <ChromePicker
-                color={backgroundColor}
-                onChange={onChangeBackgroundColor}
-              />
+      {isInitialize && (
+        <dl>
+          <dt>width</dt>
+          <dd>
+            <Input
+              className="input"
+              min={1}
+              name="width"
+              onChange={onChange}
+              type="number"
+              value={width}
+            />
+            px
+          </dd>
+          <dt>height</dt>
+          <dd>
+            <Input
+              className="input"
+              min={1}
+              name="height"
+              onChange={onChange}
+              type="number"
+              value={height}
+            />
+            px
+          </dd>
+          <dt>scale</dt>
+          <dd>
+            <Input
+              className="input"
+              min={0}
+              name="scale"
+              onChange={onChange}
+              step={0.1}
+              type="number"
+              value={scale}
+            />
+            px
+          </dd>
+          <dt>grid-size</dt>
+          <dd>
+            <Input
+              className="input"
+              max={500}
+              min={0}
+              name="gridSize"
+              onChange={onChange}
+              type="number"
+              value={gridSize}
+            />
+            px
+          </dd>
+          <dt>background-color</dt>
+          <dd>
+            <div
+              className="background-color"
+              style={{ backgroundColor: `rgba(${r},${g}, ${b},${a})` }}
+            >
+              <div className="picker">
+                <ChromePicker
+                  color={backgroundColor}
+                  onChange={onChangeBackgroundColor}
+                />
+              </div>
             </div>
-          </div>
-        </dd>
-        <dt>overflow</dt>
-        <dd>
-          <Input
-            defaultChecked={overflow}
-            name="overflow"
-            onChange={onChange}
-            type="checkbox"
-          />
-        </dd>
-      </dl>
+          </dd>
+          <dt>overflow</dt>
+          <dd>
+            <Input
+              defaultChecked={overflow}
+              name="overflow"
+              onChange={onChange}
+              type="checkbox"
+            />
+          </dd>
+        </dl>
+      )}
     </Div>
   );
 };

@@ -1,4 +1,5 @@
 import Image, { ImageProps } from 'components/templates/Image';
+import New, { NewProps } from 'components/templates/New';
 import Loading from 'components/templates/Loading';
 import domtoimage from 'dom-to-image';
 import * as React from 'react';
@@ -8,54 +9,85 @@ import styled from 'styled-components';
 const Ul = styled.ul`
   display: flex;
 
-  > li {
+  * {
+    cursor: default;
+  }
+
+  ul {
+    background-color: #fff;
+    border: 1px #ddd solid;
+    position: absolute;
+  }
+
+  li {
+    align-items: center;
+    justify-content: center;
     position: relative;
+    white-space: nowrap;
 
     &:hover {
-      background-color: #fff;
+      background-color: rgba(35, 71, 148, 0.1);
 
-      > ul {
-        display: block;
+      > ul > li {
+        display: flex;
       }
     }
+  }
 
-    > p {
-      align-items: center;
-      display: flex;
-      height: 24px;
-      justify-content: center;
-      width: 50px;
-    }
+  > li {
+    display: flex;
+    height: 24px;
+    width: 50px;
 
     > ul {
-      background-color: #fff;
-      border: 1px #ddd solid;
-      display: none;
       left: -1px;
-      position: absolute;
       top: 100%;
 
-      > li {
-        > a,
-        > button,
-        > p {
-          align-items: center;
-          display: flex;
-          height: 25px;
-          padding: 0 30px 0 15px;
-          white-space: nowrap;
-        }
+      li {
+        display: none;
+        height: 25px;
 
-        > a {
+        > *:not(ul) {
+          align-items: center;
           color: inherit;
+          display: flex;
+          justify-content: flex-start;
+          padding: 0 30px 0 15px;
           text-decoration: none;
+        }
+      }
+
+      > li > ul {
+        left: 100%;
+        top: 0;
+
+        &::after {
+          border-color: transparent transparent transparent black;
+          border-style: solid;
+          border-width: 4px 0 4px 4px;
+          content: '';
+          display: block;
+          height: 0;
+          left: -10px;
+          position: absolute;
+          top: 9px;
+          width: 0;
         }
       }
     }
   }
 `;
 
-export interface MenuProps {
+export interface MenuProps
+  extends Pick<
+    NewProps,
+    | 'backgroundColor'
+    | 'changePreviewIsInitialize'
+    | 'height'
+    | 'onChangePreviewBackgroundColor'
+    | 'onChangePreviewValue'
+    | 'width'
+  > {
   changePreviewOverflow: (value: boolean) => void;
   overflow: boolean;
 }
@@ -63,6 +95,7 @@ export interface MenuProps {
 interface MenuState {
   extension?: ImageProps['extension'];
   imageUrl: string;
+  isNew: boolean;
   isShowLoading: boolean;
 }
 
@@ -76,6 +109,7 @@ class Menu extends React.Component<MenuProps, MenuState> {
     this.state = {
       extension: undefined,
       imageUrl: '',
+      isNew: false,
       isShowLoading: false
     };
   }
@@ -120,58 +154,77 @@ class Menu extends React.Component<MenuProps, MenuState> {
   }
 
   render() {
-    const { extension, imageUrl, isShowLoading } = this.state;
+    const { extension, imageUrl, isNew, isShowLoading } = this.state;
 
     return (
-      <React.Fragment>
-        <Ul>
-          <li>
-            <p>File</p>
-            <ul>
-              <li>
-                <button
-                  onClick={() => {
-                    this.setState({ extension: 'jpg', isShowLoading: true });
-                  }}
-                >
-                  Save As JPG
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    this.setState({ extension: 'png', isShowLoading: true });
-                  }}
-                >
-                  Save As PNG
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => {
-                    this.setState({ extension: 'svg', isShowLoading: true });
-                  }}
-                >
-                  Save As SVG
-                </button>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <p>Help</p>
-            <ul>
-              <li>
-                <a
-                  href="https://github.com/piro0919/image-maker"
-                  target="_blank"
-                >
-                  GitHub
-                </a>
-              </li>
-            </ul>
-          </li>
-        </Ul>
-        {extension && imageUrl ? (
+      <Ul>
+        <li>
+          <p>File</p>
+          <ul>
+            <li>
+              <button
+                onClick={() => {
+                  this.setState({ isNew: true });
+                }}
+              >
+                New
+              </button>
+            </li>
+            <li>
+              <p>Save</p>
+              <ul>
+                <li>
+                  <button
+                    onClick={() => {
+                      this.setState({
+                        extension: 'jpg',
+                        isShowLoading: true
+                      });
+                    }}
+                  >
+                    JPG
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      this.setState({
+                        extension: 'png',
+                        isShowLoading: true
+                      });
+                    }}
+                  >
+                    PNG
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => {
+                      this.setState({
+                        extension: 'svg',
+                        isShowLoading: true
+                      });
+                    }}
+                  >
+                    SVG
+                  </button>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <p>Help</p>
+          <ul>
+            <li>
+              <a href="https://github.com/piro0919/image-maker" target="_blank">
+                GitHub
+              </a>
+            </li>
+          </ul>
+        </li>
+        {extension &&
+          imageUrl &&
           ReactDOM.createPortal(
             <Image
               extension={extension}
@@ -181,16 +234,19 @@ class Menu extends React.Component<MenuProps, MenuState> {
               src={imageUrl}
             />,
             this.rootEl
-          )
-        ) : (
-          <React.Fragment />
-        )}
-        {isShowLoading ? (
-          ReactDOM.createPortal(<Loading />, this.rootEl)
-        ) : (
-          <React.Fragment />
-        )}
-      </React.Fragment>
+          )}
+        {isNew &&
+          ReactDOM.createPortal(
+            <New
+              {...this.props}
+              onClickCloseButton={() => {
+                this.setState({ isNew: false });
+              }}
+            />,
+            this.rootEl
+          )}
+        {isShowLoading && ReactDOM.createPortal(<Loading />, this.rootEl)}
+      </Ul>
     );
   }
 }

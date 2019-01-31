@@ -10,6 +10,7 @@ export interface PreviewState {
   };
   gridSize: number;
   height: number;
+  isInitialize: boolean;
   overflow: boolean;
   scale: number;
   width: number;
@@ -23,10 +24,11 @@ const initialState: PreviewState = {
     r: 255
   },
   gridSize: 0,
-  height: 300,
-  overflow: true,
+  height: 1,
+  isInitialize: false,
+  overflow: false,
   scale: 1,
-  width: 400
+  width: 1
 };
 
 const preview = reducerWithInitialState(initialState).case(

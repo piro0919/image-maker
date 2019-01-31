@@ -6,6 +6,10 @@ const Button = styled.button`
   height: 100%;
   width: 100%;
 
+  &:disabled {
+    opacity: 0.5;
+  }
+
   .icon {
     color: white;
     height: 100%;
@@ -14,6 +18,7 @@ const Button = styled.button`
 `;
 
 export interface DocumentAddButtonProps {
+  disabled: boolean;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
