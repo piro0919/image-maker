@@ -1,19 +1,19 @@
+import ChromePicker, { ChromePickerProps } from 'components/atoms/ChromePicker';
 import Input, { InputProps } from 'components/atoms/Input';
 import * as React from 'react';
-import { ChromePicker, ColorResult } from 'react-color';
 import styled from 'styled-components';
 
-const Div = styled.div`
-  align-items: center;
+const Dl = styled.dl`
   display: flex;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-top: -5px;
 
-  dl {
+  > div {
     align-items: center;
     display: flex;
-
-    dt:not(:first-child) {
-      margin-left: 10px;
-    }
+    margin-left: 5px;
+    margin-top: 5px;
 
     dd {
       align-items: center;
@@ -44,16 +44,8 @@ const Div = styled.div`
           padding: 10px;
           position: absolute;
 
-          .chrome-picker {
-            background-color: inherit !important;
+          > div {
             border: none !important;
-            border-radius: 0 !important;
-            box-shadow: none !important;
-            font-family: inherit !important;
-
-            > div {
-              border-radius: 0 !important;
-            }
           }
         }
       }
@@ -62,17 +54,12 @@ const Div = styled.div`
 `;
 
 export interface InformationProps {
-  backgroundColor: {
-    a: number;
-    b: number;
-    g: number;
-    r: number;
-  };
+  backgroundColor: ChromePickerProps['color'];
   gridSize: number;
   height: number;
   isInitialize: boolean;
   onChange: InputProps['onChange'];
-  onChangeBackgroundColor: (color: ColorResult) => void;
+  onChangeBackgroundColor: ChromePickerProps['onChange'];
   overflow: boolean;
   scale: number;
   width: number;
@@ -92,85 +79,96 @@ const Information: React.SFC<InformationProps> = ({
   const { a, b, g, r } = backgroundColor;
 
   return (
-    <Div>
+    <Dl>
       {isInitialize && (
-        <dl>
-          <dt>width</dt>
-          <dd>
-            <Input
-              className="input"
-              min={1}
-              name="width"
-              onChange={onChange}
-              type="number"
-              value={width}
-            />
-            px
-          </dd>
-          <dt>height</dt>
-          <dd>
-            <Input
-              className="input"
-              min={1}
-              name="height"
-              onChange={onChange}
-              type="number"
-              value={height}
-            />
-            px
-          </dd>
-          <dt>scale</dt>
-          <dd>
-            <Input
-              className="input"
-              min={0}
-              name="scale"
-              onChange={onChange}
-              step={0.1}
-              type="number"
-              value={scale}
-            />
-            px
-          </dd>
-          <dt>grid-size</dt>
-          <dd>
-            <Input
-              className="input"
-              max={500}
-              min={0}
-              name="gridSize"
-              onChange={onChange}
-              type="number"
-              value={gridSize}
-            />
-            px
-          </dd>
-          <dt>background-color</dt>
-          <dd>
-            <div
-              className="background-color"
-              style={{ backgroundColor: `rgba(${r},${g}, ${b},${a})` }}
-            >
-              <div className="picker">
+        <React.Fragment>
+          <div>
+            <dt>width</dt>
+            <dd>
+              <Input
+                className="input"
+                min={1}
+                name="width"
+                onChange={onChange}
+                type="number"
+                value={width}
+              />
+              px
+            </dd>
+          </div>
+          <div>
+            <dt>height</dt>
+            <dd>
+              <Input
+                className="input"
+                min={1}
+                name="height"
+                onChange={onChange}
+                type="number"
+                value={height}
+              />
+              px
+            </dd>
+          </div>
+          <div>
+            <dt>scale</dt>
+            <dd>
+              <Input
+                className="input"
+                min={0}
+                name="scale"
+                onChange={onChange}
+                step={0.1}
+                type="number"
+                value={scale}
+              />
+              px
+            </dd>
+          </div>
+          <div>
+            <dt>grid-size</dt>
+            <dd>
+              <Input
+                className="input"
+                max={500}
+                min={0}
+                name="gridSize"
+                onChange={onChange}
+                type="number"
+                value={gridSize}
+              />
+              px
+            </dd>
+          </div>
+          <div>
+            <dt>background-color</dt>
+            <dd>
+              <div
+                className="background-color"
+                style={{ backgroundColor: `rgba(${r},${g}, ${b},${a})` }}
+              >
                 <ChromePicker
+                  className="picker"
                   color={backgroundColor}
                   onChange={onChangeBackgroundColor}
                 />
               </div>
-            </div>
-          </dd>
-          <dt>overflow</dt>
-          <dd>
-            <Input
-              defaultChecked={overflow}
-              name="overflow"
-              onChange={onChange}
-              type="checkbox"
-            />
-          </dd>
-        </dl>
+            </dd>
+          </div>
+          <div>
+            <dt>overflow</dt>
+            <dd>
+              <Input
+                defaultChecked={overflow}
+                name="overflow"
+                onChange={onChange}
+                type="checkbox"
+              />
+            </dd>
+          </div>
+        </React.Fragment>
       )}
-    </Div>
+    </Dl>
   );
 };
 

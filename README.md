@@ -1,7 +1,5 @@
 # Image Maker
 
-## What is Image Maker
-
 Image Maker is a service that allows you to easily create images by combining letters and images on a browser.
 
 Image Maker is the alpha version!
@@ -12,10 +10,6 @@ Image Maker is the alpha version!
 - Chrome
 
 and more...
-
-## Recommended environment
-
-- Browser width is 1280px or more
 
 ## Usage fee
 

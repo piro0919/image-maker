@@ -46,6 +46,7 @@ interface TextLayer {
     };
     fontSize: number;
     fontWeight: number;
+    letterSpacing: number;
     lineHeight: number;
     opacity: number;
     rotate: number;
@@ -100,6 +101,7 @@ const layer = reducerWithInitialState(initialState)
         },
         fontSize: 16,
         fontWeight: 400,
+        letterSpacing: 0,
         lineHeight: 16,
         opacity: 1,
         rotate: 0,
@@ -114,9 +116,7 @@ const layer = reducerWithInitialState(initialState)
     const { index, layers: prevLayers } = state;
     const layers = prevLayers.slice();
 
-    if (name === 'fontSize' || name === 'fontWeight' || name === 'lineHeight') {
-      layers[index].style[name] = parseInt(value, 10);
-    } else if (name === 'opacity' || name === 'rotate' || name === 'scale') {
+    if (name === 'opacity' || name === 'rotate' || name === 'scale') {
       layers[index].style[name] = parseFloat(value);
     } else {
       layers[index].style[name] = value;

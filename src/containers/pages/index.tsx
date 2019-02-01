@@ -28,6 +28,7 @@ import Dropzone, { DropzoneProps } from 'components/templates/Dropzone';
 import Logo from 'components/templates/Logo';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { State } from 'reducers';
@@ -56,7 +57,7 @@ const Div = styled.div`
     box-shadow: 1px 0px #ddd inset;
     display: grid;
     grid-gap: 5px;
-    grid-template-rows: 1fr 20px;
+    grid-template-rows: 1fr fit-content(20px);
     padding: 5px;
   }
 
@@ -188,7 +189,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
       upLayer
     } = this.props;
     const { isShowDropzone, isShowLogo, loading } = this.state;
-    const { isInitialize } = preview;
+    const { fileName, isInitialize } = preview;
 
     let styles = <React.Fragment />;
 
@@ -216,6 +217,11 @@ class Pages extends React.Component<PagesProps, PagesState> {
 
     return (
       <Div>
+        {fileName && isInitialize && (
+          <Helmet>
+            <title>{`Image Maker: ${fileName}`}</title>
+          </Helmet>
+        )}
         <header className="header">
           <Menu
             {...preview}

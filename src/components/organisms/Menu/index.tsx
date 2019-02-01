@@ -83,6 +83,7 @@ export interface MenuProps
     NewProps,
     | 'backgroundColor'
     | 'changePreviewIsInitialize'
+    | 'fileName'
     | 'height'
     | 'onChangePreviewBackgroundColor'
     | 'onChangePreviewValue'
@@ -154,6 +155,7 @@ class Menu extends React.Component<MenuProps, MenuState> {
   }
 
   render() {
+    const { fileName } = this.props;
     const { extension, imageUrl, isNew, isShowLoading } = this.state;
 
     return (
@@ -228,6 +230,7 @@ class Menu extends React.Component<MenuProps, MenuState> {
           ReactDOM.createPortal(
             <Image
               extension={extension}
+              fileName={fileName}
               onClickCloseButton={() => {
                 this.setState({ extension: undefined, imageUrl: '' });
               }}

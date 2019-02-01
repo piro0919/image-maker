@@ -34,6 +34,7 @@ export interface TextPreviewProps {
     };
     fontSize: number;
     fontWeight: number;
+    letterSpacing: number;
     lineHeight: number;
     opacity: number;
     rotate: number;
@@ -47,6 +48,7 @@ const TextPreview: React.SFC<TextPreviewProps> = ({
     fontFamily: { value: fontFamily },
     fontSize,
     fontWeight,
+    letterSpacing,
     lineHeight,
     opacity,
     rotate
@@ -61,6 +63,7 @@ const TextPreview: React.SFC<TextPreviewProps> = ({
       opacity,
       color: `rgba(${r}, ${g}, ${b}, ${a})`,
       fontSize: `${fontSize}px`,
+      letterSpacing: `${letterSpacing}px`,
       transform: `rotate(${rotate}deg)`
     }}
   >

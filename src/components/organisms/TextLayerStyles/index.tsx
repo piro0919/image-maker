@@ -1,7 +1,7 @@
+import ChromePicker, { ChromePickerProps } from 'components/atoms/ChromePicker';
 import Input from 'components/atoms/Input';
 import LayerStyles from 'components/molecules/LayerStyles';
 import * as React from 'react';
-import { ChromePicker, ColorResult } from 'react-color';
 import Select from 'react-select';
 import { Props } from 'react-select/lib/Select';
 import styled from 'styled-components';
@@ -14,18 +14,6 @@ const StyledLayerStyles = styled(LayerStyles)`
   .input {
     width: 50px;
   }
-
-  .picker .chrome-picker {
-    background-color: #fff !important;
-    border: 1px #ddd solid !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    font-family: inherit !important;
-
-    > div {
-      border-radius: 0 !important;
-    }
-  }
 `;
 
 interface Font {
@@ -33,13 +21,7 @@ interface Font {
   name: string;
 }
 
-export interface TextLayerStylesProps {
-  color: {
-    a: number;
-    b: number;
-    g: number;
-    r: number;
-  };
+export interface TextLayerStylesProps extends Pick<ChromePickerProps, 'color'> {
   fontFamily: {
     label: string;
     value: string;
@@ -47,9 +29,10 @@ export interface TextLayerStylesProps {
   fonts: Font[];
   fontSize: number;
   fontWeight: number;
+  letterSpacing: number;
   lineHeight: number;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onChangeColor: (color: ColorResult) => void;
+  onChangeColor: ChromePickerProps['onChange'];
   onChangeFontFamily: (value: ArgumentTypes<Props['onChange']>[0]) => void;
   opacity: number;
   rotate: number;
@@ -61,6 +44,7 @@ const TextLayerStyles: React.SFC<TextLayerStylesProps> = ({
   fonts,
   fontSize,
   fontWeight,
+  letterSpacing,
   lineHeight,
   onChange,
   onChangeColor,
@@ -72,11 +56,7 @@ const TextLayerStyles: React.SFC<TextLayerStylesProps> = ({
     {[
       {
         name: 'color',
-        node: (
-          <div className="picker">
-            <ChromePicker color={color} onChange={onChangeColor} />
-          </div>
-        )
+        node: <ChromePicker color={color} onChange={onChangeColor} />
       },
       {
         name: 'font-family',
@@ -121,6 +101,21 @@ const TextLayerStyles: React.SFC<TextLayerStylesProps> = ({
             type="number"
             value={fontWeight}
           />
+        )
+      },
+      {
+        name: 'letter-spacing',
+        node: (
+          <React.Fragment>
+            <Input
+              className="input"
+              name="letterSpacing"
+              onChange={onChange}
+              type="number"
+              value={letterSpacing}
+            />
+            px
+          </React.Fragment>
         )
       },
       {

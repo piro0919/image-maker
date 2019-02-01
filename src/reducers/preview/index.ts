@@ -8,6 +8,7 @@ export interface PreviewState {
     g: number;
     r: number;
   };
+  fileName: string;
   gridSize: number;
   height: number;
   isInitialize: boolean;
@@ -23,6 +24,7 @@ const initialState: PreviewState = {
     g: 255,
     r: 255
   },
+  fileName: '',
   gridSize: 0,
   height: 1,
   isInitialize: false,

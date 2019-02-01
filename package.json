@@ -52,6 +52,7 @@
     "react-dev-utils": "^7.0.1",
     "react-dom": "^16.7.0",
     "react-dropzone": "^8.0.3",
+    "react-helmet": "^5.2.0",
     "react-icons": "^3.3.0",
     "react-measure": "^2.2.2",
     "react-redux": "^6.0.0",

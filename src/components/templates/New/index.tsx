@@ -1,17 +1,17 @@
+import ChromePicker, { ChromePickerProps } from 'components/atoms/ChromePicker';
 import DocumentButton, {
   DocumentButtonProps
 } from 'components/atoms/DocumentButton';
 import Input from 'components/atoms/Input';
 import Portal, { PortalProps } from 'components/templates/Portal';
 import * as React from 'react';
-import { ChromePicker, ColorResult } from 'react-color';
 import styled from 'styled-components';
 
 const StyledPortal = styled(Portal)`
   .wrapper {
     display: flex;
     flex-direction: column;
-    width: 227px;
+    width: 250px;
 
     dt:not(:first-child) {
       margin-top: 15px;
@@ -20,21 +20,14 @@ const StyledPortal = styled(Portal)`
     dd {
       display: flex;
       justify-content: flex-end;
+      margin-top: 5px;
+
+      .file-name {
+        width: 150px;
+      }
 
       .input {
         width: 50px;
-      }
-
-      .picker .chrome-picker {
-        background-color: #fff !important;
-        border: 1px #ddd solid !important;
-        border-radius: 0 !important;
-        box-shadow: none !important;
-        font-family: inherit !important;
-
-        > div {
-          border-radius: 0 !important;
-        }
       }
     }
   }
@@ -50,15 +43,11 @@ const StyledPortal = styled(Portal)`
 
 export interface NewProps
   extends Required<Pick<PortalProps, 'onClickCloseButton'>> {
-  backgroundColor: {
-    a: number;
-    b: number;
-    g: number;
-    r: number;
-  };
+  backgroundColor: ChromePickerProps['color'];
   changePreviewIsInitialize: (value: boolean) => void;
+  fileName: string;
   height: number;
-  onChangePreviewBackgroundColor: (color: ColorResult) => void;
+  onChangePreviewBackgroundColor: ChromePickerProps['onChange'];
   onChangePreviewValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
   width: number;
 }
@@ -66,6 +55,7 @@ export interface NewProps
 const New: React.SFC<NewProps> = ({
   backgroundColor,
   changePreviewIsInitialize,
+  fileName,
   height,
   onChangePreviewBackgroundColor,
   onChangePreviewValue,
@@ -74,13 +64,23 @@ const New: React.SFC<NewProps> = ({
 }: NewProps) => (
   <StyledPortal onClickCloseButton={onClickCloseButton}>
     <dl className="wrapper">
+      <dt>file-name</dt>
+      <dd>
+        <Input
+          className="file-name"
+          name="fileName"
+          onChange={onChangePreviewValue}
+          type="text"
+          value={fileName}
+        />
+      </dd>
       <dt>width</dt>
       <dd>
         <Input
           className="input"
-          onChange={onChangePreviewValue}
           min={1}
           name="width"
+          onChange={onChangePreviewValue}
           type="number"
           value={width}
         />
@@ -90,9 +90,9 @@ const New: React.SFC<NewProps> = ({
       <dd>
         <Input
           className="input"
-          onChange={onChangePreviewValue}
           min={1}
           name="height"
+          onChange={onChangePreviewValue}
           type="number"
           value={height}
         />
@@ -100,17 +100,15 @@ const New: React.SFC<NewProps> = ({
       </dd>
       <dt>background-color</dt>
       <dd>
-        <div className="picker">
-          <ChromePicker
-            color={backgroundColor}
-            onChange={onChangePreviewBackgroundColor}
-          />
-        </div>
+        <ChromePicker
+          color={backgroundColor}
+          onChange={onChangePreviewBackgroundColor}
+        />
       </dd>
     </dl>
     <DocumentButton
       className="document-button"
-      disabled={!height || !width}
+      disabled={!fileName || !height || !width}
       onClick={(e: ArgumentTypes<DocumentButtonProps['onClick']>[0]) => {
         changePreviewIsInitialize(true);
         onClickCloseButton(e);

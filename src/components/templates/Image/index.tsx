@@ -22,11 +22,13 @@ const StyledPortal = styled(Portal)`
 export interface ImageProps
   extends Required<Pick<PortalProps, 'onClickCloseButton'>> {
   extension: 'jpg' | 'png' | 'svg';
+  fileName: string;
   src: string;
 }
 
 const Image: React.SFC<ImageProps> = ({
   extension,
+  fileName,
   onClickCloseButton,
   src
 }: ImageProps) => (
@@ -35,7 +37,7 @@ const Image: React.SFC<ImageProps> = ({
     <DownloadButton
       className="download-button"
       onClick={() => {
-        saveAs(src, `image.${extension}`);
+        saveAs(src, `${fileName || 'image'}.${extension}`);
       }}
     />
   </StyledPortal>
