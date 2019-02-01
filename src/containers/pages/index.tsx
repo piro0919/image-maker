@@ -13,6 +13,7 @@ import ArrowDownOutlineButton from 'components/atoms/ArrowUpOutlineButton';
 import DocumentAddButton from 'components/atoms/DocumentAddButton';
 import DocumentDeleteButton from 'components/atoms/DocumentDeleteButton';
 import ImageButton from 'components/atoms/ImageButton';
+import ReactHelmet from 'components/atoms/ReactHelmet';
 import ImageLayerStyles from 'components/organisms/ImageLayerStyles';
 import Information, {
   InformationProps
@@ -28,7 +29,6 @@ import Dropzone, { DropzoneProps } from 'components/templates/Dropzone';
 import Logo from 'components/templates/Logo';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { State } from 'reducers';
@@ -217,11 +217,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
 
     return (
       <Div>
-        {fileName && isInitialize && (
-          <Helmet>
-            <title>{`Image Maker: ${fileName}`}</title>
-          </Helmet>
-        )}
+        {fileName && isInitialize && <ReactHelmet fileName={fileName} />}
         <header className="header">
           <Menu
             {...preview}
