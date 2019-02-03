@@ -26,11 +26,12 @@ const initialState: PreviewState = {
   },
   fileName: '',
   gridSize: 0,
-  height: 1,
-  isInitialize: false,
+  height: 720,
+  // isInitialize: false,
+  isInitialize: process.env.NODE_ENV === 'development',
   overflow: false,
   scale: 1,
-  width: 1
+  width: 1280
 };
 
 const preview = reducerWithInitialState(initialState).case(
@@ -38,9 +39,7 @@ const preview = reducerWithInitialState(initialState).case(
   (state, { name, value: newValue }) => {
     let value;
 
-    if (name === 'gridSize' || name === 'height' || name === 'width') {
-      value = parseInt(newValue as string, 10);
-    } else if (name === 'scale') {
+    if (name === 'scale') {
       value = parseFloat(newValue as string);
     } else {
       value = newValue;

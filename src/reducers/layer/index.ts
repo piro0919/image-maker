@@ -80,7 +80,7 @@ const layer = reducerWithInitialState(initialState)
       }
     });
 
-    return { ...state, layers };
+    return { ...state, layers, index: layers.length - 1 };
   })
   .case(addTextLayer, state => {
     const { layers: prevLayers } = state;
@@ -96,8 +96,8 @@ const layer = reducerWithInitialState(initialState)
           r: 0
         },
         fontFamily: {
-          label: 'バンバン',
-          value: 'BANBAN-FREE'
+          label: 'M+ P Type-1 Regular',
+          value: 'mplus-1p-regular'
         },
         fontSize: 16,
         fontWeight: 400,
@@ -105,12 +105,24 @@ const layer = reducerWithInitialState(initialState)
         lineHeight: 16,
         opacity: 1,
         rotate: 0,
-        textShadows: []
+        textShadows: [
+          {
+            blurRadius: 0,
+            color: {
+              a: 0,
+              b: 0,
+              g: 0,
+              r: 0
+            },
+            hShadow: 0,
+            vShadow: 0
+          }
+        ]
       },
       value: ''
     });
 
-    return { ...state, layers };
+    return { ...state, layers, index: layers.length - 1 };
   })
   .case(changeStyle, (state, { name, value }) => {
     const { index, layers: prevLayers } = state;
@@ -148,19 +160,22 @@ const layer = reducerWithInitialState(initialState)
     return { ...state, index: index - 1, layers };
   })
   .case(removeLayer, state => {
-    const { index, layers: prevLayers } = state;
-
-    if (index === undefined) {
-      return state;
-    }
-
+    const { index: prevIndex, layers: prevLayers } = state;
     const layers = prevLayers.slice();
 
-    layers.splice(index, 1);
+    let index = undefined;
+
+    layers.splice(prevIndex, 1);
+
+    if (index - 1 >= 0) {
+      index = index - 1;
+    } else if (layers.length) {
+      index = 0;
+    }
 
     return {
-      layers,
-      index: undefined
+      index,
+      layers
     };
   })
   .case(selectLayer, (state, { index }) => ({ ...state, index }))

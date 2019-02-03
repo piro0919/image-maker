@@ -4,6 +4,18 @@
     "name": "バンバン"
   },
   {
+    "fontFamily": "chogokubosogothic_5",
+    "name": "超極細ゴシック"
+  },
+  {
+    "fontFamily": "font_1_kokugl_1.15_rls",
+    "name": "刻ゴシック"
+  },
+  {
+    "fontFamily": "font_1_kokumr_1.00_rls",
+    "name": "刻明朝"
+  },
+  {
     "fontFamily": "GAGAGAGA-FREE",
     "name": "ガガガガ"
   },
@@ -116,6 +128,10 @@
     "name": "機械彫刻用標準書体 Medium"
   },
   {
+    "fontFamily": "KokuMaruMinchoKana-Regular",
+    "name": "刻丸明朝かな"
+  },
+  {
     "fontFamily": "komorebi-gothic",
     "name": "木漏れ日ゴシック"
   },
@@ -168,6 +184,182 @@
     "name": "モッチーポップ"
   },
   {
+    "fontFamily": "mplus-1c-black",
+    "name": "M+ C Type-1 Black"
+  },
+  {
+    "fontFamily": "mplus-1c-bold",
+    "name": "M+ C Type-1 Bold"
+  },
+  {
+    "fontFamily": "mplus-1c-heavy",
+    "name": "M+ C Type-1 Heavy"
+  },
+  {
+    "fontFamily": "mplus-1c-light",
+    "name": "M+ C Type-1 Light"
+  },
+  {
+    "fontFamily": "mplus-1c-medium",
+    "name": "M+ C Type-1 Medium"
+  },
+  {
+    "fontFamily": "mplus-1c-regular",
+    "name": "M+ C Type-1 Regular"
+  },
+  {
+    "fontFamily": "mplus-1c-thin",
+    "name": "M+ C Type-1 Thin"
+  },
+  {
+    "fontFamily": "mplus-1m-bold",
+    "name": "M+ M Type-1 Bold"
+  },
+  {
+    "fontFamily": "mplus-1m-light",
+    "name": "M+ M Type-1 Light"
+  },
+  {
+    "fontFamily": "mplus-1m-medium",
+    "name": "M+ M Type-1 Medium"
+  },
+  {
+    "fontFamily": "mplus-1mn-bold",
+    "name": "M+ MN Type-1 Bold"
+  },
+  {
+    "fontFamily": "mplus-1mn-light",
+    "name": "M+ MN Type-1 Light"
+  },
+  {
+    "fontFamily": "mplus-1mn-medium",
+    "name": "M+ MN Type-1 Medium"
+  },
+  {
+    "fontFamily": "mplus-1mn-regular",
+    "name": "M+ MN Type-1 Regular"
+  },
+  {
+    "fontFamily": "mplus-1mn-thin",
+    "name": "M+ MN Type-1 Thin"
+  },
+  {
+    "fontFamily": "mplus-1m-regular",
+    "name": "M+ M Type-1 Regular"
+  },
+  {
+    "fontFamily": "mplus-1m-thin",
+    "name": "M+ M Type-1 Thin"
+  },
+  {
+    "fontFamily": "mplus-1p-black",
+    "name": "M+ P Type-1 Black"
+  },
+  {
+    "fontFamily": "mplus-1p-bold",
+    "name": "M+ P Type-1 Bold"
+  },
+  {
+    "fontFamily": "mplus-1p-heavy",
+    "name": "M+ P Type-1 Heavy"
+  },
+  {
+    "fontFamily": "mplus-1p-light",
+    "name": "M+ P Type-1 Light"
+  },
+  {
+    "fontFamily": "mplus-1p-medium",
+    "name": "M+ P Type-1 Medium"
+  },
+  {
+    "fontFamily": "mplus-1p-regular",
+    "name": "M+ P Type-1 Regular"
+  },
+  {
+    "fontFamily": "mplus-1p-thin",
+    "name": "M+ P Type-1 Thin"
+  },
+  {
+    "fontFamily": "mplus-2c-black",
+    "name": "M+ C Type-2 Black"
+  },
+  {
+    "fontFamily": "mplus-2c-bold",
+    "name": "M+ C Type-2 Bold"
+  },
+  {
+    "fontFamily": "mplus-2c-heavy",
+    "name": "M+ C Type-2 Heavy"
+  },
+  {
+    "fontFamily": "mplus-2c-light",
+    "name": "M+ C Type-2 Light"
+  },
+  {
+    "fontFamily": "mplus-2c-medium",
+    "name": "M+ C Type-2 Medium"
+  },
+  {
+    "fontFamily": "mplus-2c-regular",
+    "name": "M+ C Type-2 Regular"
+  },
+  {
+    "fontFamily": "mplus-2c-thin",
+    "name": "M+ C Type-2 Thin"
+  },
+  {
+    "fontFamily": "mplus-2m-bold",
+    "name": "M+ M Type-2 Bold"
+  },
+  {
+    "fontFamily": "mplus-2m-light",
+    "name": "M+ M Type-2 Light"
+  },
+  {
+    "fontFamily": "mplus-2m-medium",
+    "name": "M+ M Type-2 Medium"
+  },
+  {
+    "fontFamily": "mplus-2m-regular",
+    "name": "M+ M Type-2 Regular"
+  },
+  {
+    "fontFamily": "mplus-2m-thin",
+    "name": "M+ M Type-2 Thin"
+  },
+  {
+    "fontFamily": "mplus-2p-black",
+    "name": "M+ P Type-2 Black"
+  },
+  {
+    "fontFamily": "mplus-2p-bold",
+    "name": "M+ P Type-2 Bold"
+  },
+  {
+    "fontFamily": "mplus-2p-heavy",
+    "name": "M+ P Type-2 Heavy"
+  },
+  {
+    "fontFamily": "mplus-2p-light",
+    "name": "M+ P Type-2 Light"
+  },
+  {
+    "fontFamily": "mplus-2p-medium",
+    "name": "M+ P Type-2 Medium"
+  },
+  {
+    "fontFamily": "mplus-2p-regular",
+    "name": "M+ P Type-2 Regular"
+  },
+  {
+    "fontFamily": "mplus-2p-thin",
+    "name": "M+ P Type-2 Thin"
+  },
+  {
+    "fontFamily": "NagomiGokubosoGothic-ExtraLight",
+    "name": "なごみ極細ゴシック"
+  },
+  {
     "fontFamily": "Senobi-Gothic-Bold",
     "name": "せのびゴシック Bold"
   },
@@ -182,6 +374,30 @@
   {
     "fontFamily": "pupupu-free",
     "name": "プぷプ"
+  },
+  {
+    "fontFamily": "ryakuji3",
+    "name": "略字フォント"
+  },
+  {
+    "fontFamily": "ryakujiGSGEL",
+    "name": "略字GSゴシック ExtraLight"
+  },
+  {
+    "fontFamily": "ryakujiGSGL",
+    "name": "略字GSゴシック Light"
+  },
+  {
+    "fontFamily": "ryakujiGSGM",
+    "name": "略字GSゴシック Medium"
+  },
+  {
+    "fontFamily": "ryakujiGSGR",
+    "name": "略字GSゴシック Regular"
+  },
+  {
+    "fontFamily": "ryakujiGSGUL",
+    "name": "略字GSゴシック UltraLight"
   },
   {
     "fontFamily": "ShipporiMincho-Regular",
