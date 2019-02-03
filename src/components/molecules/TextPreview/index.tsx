@@ -19,6 +19,18 @@ const Div = styled.div`
   white-space: nowrap;
 `;
 
+interface TextShadow {
+  blurRadius: number;
+  color: {
+    a: number;
+    b: number;
+    g: number;
+    r: number;
+  };
+  hShadow: number;
+  vShadow: number;
+}
+
 export interface TextPreviewProps {
   id: string;
   style: {
@@ -38,6 +50,7 @@ export interface TextPreviewProps {
     lineHeight: number;
     opacity: number;
     rotate: number;
+    textShadows: TextShadow[];
   };
   value: string;
 }
@@ -51,7 +64,8 @@ const TextPreview: React.SFC<TextPreviewProps> = ({
     letterSpacing,
     lineHeight,
     opacity,
-    rotate
+    rotate,
+    textShadows
   },
   value
 }: TextPreviewProps) => (
@@ -64,6 +78,22 @@ const TextPreview: React.SFC<TextPreviewProps> = ({
       color: `rgba(${r}, ${g}, ${b}, ${a})`,
       fontSize: `${fontSize}px`,
       letterSpacing: `${letterSpacing}px`,
+      textShadow: textShadows
+        .map(
+          ({
+            blurRadius,
+            color: {
+              a: textShadowA,
+              b: textShadowB,
+              g: textShadowG,
+              r: textShadowR
+            },
+            hShadow,
+            vShadow
+          }) =>
+            `${hShadow}px ${vShadow}px ${blurRadius}px rgba(${textShadowR}, ${textShadowG}, ${textShadowB}, ${textShadowA})`
+        )
+        .join(' '),
       transform: `rotate(${rotate}deg)`
     }}
   >

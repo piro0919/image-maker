@@ -34,11 +34,17 @@ export interface TextLayerStylesProps
   fontWeight: number;
   letterSpacing: number;
   lineHeight: number;
-  onChangeColor: ChromePickerProps['onChange'];
+  onChangeColor: (
+    color: ArgumentTypes<ChromePickerProps['onChange']>[0],
+    name: string
+  ) => void;
   onChangeFontFamily: (value: ArgumentTypes<Props['onChange']>[0]) => void;
   opacity: number;
   rotate: number;
-  textShadows: Pick<TextShadowProps, 'blurRadius' | 'hShadow' | 'vShadow'>[];
+  textShadows: Pick<
+    TextShadowProps,
+    'blurRadius' | 'color' | 'hShadow' | 'vShadow'
+  >[];
 }
 
 const TextLayerStyles: React.SFC<TextLayerStylesProps> = ({
@@ -69,7 +75,12 @@ const TextLayerStyles: React.SFC<TextLayerStylesProps> = ({
       {[
         {
           name: 'color',
-          node: <ChromePicker color={color} onChange={onChangeColor} />
+          node: (
+            <ChromePicker
+              color={color}
+              onChange={color => onChangeColor(color, 'color')}
+            />
+          )
         },
         {
           name: 'font-family',
@@ -180,8 +191,10 @@ const TextLayerStyles: React.SFC<TextLayerStylesProps> = ({
           node: textShadows.map((textShadow, index) => (
             <TextShadow
               {...textShadow}
-              name={`textShadow[${index}]`}
+              key={index}
+              name={`textShadows[${index}]`}
               onChange={onChange}
+              onChangeTextShadowColor={onChangeColor}
             />
           ))
         }

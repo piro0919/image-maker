@@ -308,10 +308,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     });
   },
   addTextLayer: () => dispatch(addTextLayer()),
-  changeColor: ({
-    rgb: value
-  }: ArgumentTypes<TextLayerStylesProps['onChangeColor']>[0]) =>
-    dispatch(changeStyle({ value, name: 'color' })),
+  changeColor: (
+    { rgb: value }: ArgumentTypes<TextLayerStylesProps['onChangeColor']>[0],
+    name: string
+  ) => dispatch(changeStyle({ name, value })),
   changeFontFamily: (
     value: ArgumentTypes<TextLayerStylesProps['onChangeFontFamily']>[0]
   ) => dispatch(changeStyle({ value, name: 'fontFamily' })),

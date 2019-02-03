@@ -128,10 +128,17 @@ const layer = reducerWithInitialState(initialState)
     const { index, layers: prevLayers } = state;
     const layers = prevLayers.slice();
 
-    if (name === 'opacity' || name === 'rotate' || name === 'scale') {
-      layers[index].style[name] = parseFloat(value);
+    if (name.indexOf('.') >= 0) {
+      const [first, secondName] = name.split('.');
+      const [_, firstName, index2] = first.match('([a-zA-Z]+)\\[(.+)\\]');
+
+      layers[index].style[firstName][parseInt(index2, 10)][secondName] = value;
     } else {
-      layers[index].style[name] = value;
+      if (name === 'opacity' || name === 'rotate' || name === 'scale') {
+        layers[index].style[name] = parseFloat(value);
+      } else {
+        layers[index].style[name] = value;
+      }
     }
 
     return { ...state, layers };
