@@ -26,12 +26,12 @@ const initialState: PreviewState = {
   },
   fileName: '',
   gridSize: 0,
-  height: 720,
+  height: 300,
   // isInitialize: false,
   isInitialize: process.env.NODE_ENV === 'development',
   overflow: false,
   scale: 1,
-  width: 1280
+  width: 400
 };
 
 const preview = reducerWithInitialState(initialState).case(

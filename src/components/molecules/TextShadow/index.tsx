@@ -11,6 +11,7 @@ const Dl = styled.dl`
 
 export interface TextShadowProps {
   blurRadius: number;
+  className?: string;
   color: {
     a: number;
     b: number;
@@ -29,6 +30,7 @@ export interface TextShadowProps {
 
 const TextShadow: React.SFC<TextShadowProps> = ({
   blurRadius,
+  className,
   color,
   hShadow,
   name,
@@ -36,8 +38,8 @@ const TextShadow: React.SFC<TextShadowProps> = ({
   onChangeTextShadowColor,
   vShadow
 }: TextShadowProps) => (
-  <Dl>
-    <dt />
+  <Dl className={className}>
+    <dt>h-shadow</dt>
     <dd>
       <Input
         className="input"
@@ -49,7 +51,7 @@ const TextShadow: React.SFC<TextShadowProps> = ({
       />
       px
     </dd>
-    <dt />
+    <dt>v-shadow</dt>
     <dd>
       <Input
         className="input"
@@ -61,7 +63,7 @@ const TextShadow: React.SFC<TextShadowProps> = ({
       />
       px
     </dd>
-    <dt />
+    <dt>blur-radius</dt>
     <dd>
       <Input
         className="input"
@@ -73,7 +75,7 @@ const TextShadow: React.SFC<TextShadowProps> = ({
       />
       px
     </dd>
-    <dt />
+    <dt>color</dt>
     <dd>
       <ChromePicker
         color={color}

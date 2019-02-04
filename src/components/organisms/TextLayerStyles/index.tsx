@@ -15,6 +15,10 @@ const StyledLayerStyles = styled(LayerStyles)`
   .input {
     width: 50px;
   }
+
+  .text-shadow {
+    margin-top: 10px;
+  }
 `;
 
 interface Font {
@@ -191,6 +195,7 @@ const TextLayerStyles: React.SFC<TextLayerStylesProps> = ({
           node: textShadows.map((textShadow, index) => (
             <TextShadow
               {...textShadow}
+              className="text-shadow"
               key={index}
               name={`textShadows[${index}]`}
               onChange={onChange}

@@ -40,7 +40,7 @@ const Ul = styled.ul`
     width: 50px;
 
     > ul {
-      left: -1px;
+      left: 0;
       top: 100%;
 
       li {
