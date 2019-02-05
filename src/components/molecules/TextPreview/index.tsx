@@ -45,6 +45,7 @@ export interface TextPreviewProps {
       value: string;
     };
     fontSize: number;
+    fontStyle: boolean;
     fontWeight: number;
     letterSpacing: number;
     lineHeight: number;
@@ -60,6 +61,7 @@ const TextPreview: React.SFC<TextPreviewProps> = ({
     color: { a, b, g, r },
     fontFamily: { value: fontFamily },
     fontSize,
+    fontStyle,
     fontWeight,
     letterSpacing,
     lineHeight,
@@ -77,6 +79,7 @@ const TextPreview: React.SFC<TextPreviewProps> = ({
       opacity,
       color: `rgba(${r}, ${g}, ${b}, ${a})`,
       fontSize: `${fontSize}px`,
+      fontStyle: fontStyle ? 'italic' : 'normal',
       letterSpacing: `${letterSpacing}px`,
       textShadow: textShadows
         .map(
@@ -93,7 +96,7 @@ const TextPreview: React.SFC<TextPreviewProps> = ({
           }) =>
             `${hShadow}px ${vShadow}px ${blurRadius}px rgba(${textShadowR}, ${textShadowG}, ${textShadowB}, ${textShadowA})`
         )
-        .join(' '),
+        .join(','),
       transform: `rotate(${rotate}deg)`
     }}
   >

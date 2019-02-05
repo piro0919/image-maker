@@ -18,7 +18,7 @@ const Dl = styled.dl`
 `;
 
 interface Child {
-  name: string;
+  name: React.ReactNode;
   node: React.ReactNode;
 }
 
@@ -32,8 +32,8 @@ const LayerStyles: React.SFC<LayerStylesProps> = ({
   className
 }: LayerStylesProps) => (
   <Dl className={className}>
-    {children.map(({ name, node }) => (
-      <div key={name}>
+    {children.map(({ name, node }, index) => (
+      <div key={index}>
         <dt>{name}</dt>
         <dd>{node}</dd>
       </div>

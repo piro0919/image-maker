@@ -1,11 +1,14 @@
 import addImageLayer from 'actions/layer/addImageLayer';
 import addTextLayer from 'actions/layer/addTextLayer';
+import addTextShadow from 'actions/layer/addTextShadow';
 import changeStyle from 'actions/layer/changeStyle';
 import changeValue from 'actions/layer/changeValue';
 import downLayer from 'actions/layer/downLayer';
 import removeLayer from 'actions/layer/removeLayer';
+import removeTextShadow from 'actions/layer/removeTextShadow';
 import selectLayer from 'actions/layer/selectLayer';
 import upLayer from 'actions/layer/upLayer';
+import changePreviewValue from 'actions/preview/changeValue';
 import { reducerWithInitialState } from 'typescript-fsa-reducers';
 import * as uniqid from 'uniqid';
 
@@ -45,6 +48,7 @@ interface TextLayer {
       value: string;
     };
     fontSize: number;
+    fontStyle: boolean;
     fontWeight: number;
     letterSpacing: number;
     lineHeight: number;
@@ -100,29 +104,36 @@ const layer = reducerWithInitialState(initialState)
           value: 'mplus-1p-regular'
         },
         fontSize: 16,
+        fontStyle: false,
         fontWeight: 400,
         letterSpacing: 0,
         lineHeight: 16,
         opacity: 1,
         rotate: 0,
-        textShadows: [
-          {
-            blurRadius: 0,
-            color: {
-              a: 0,
-              b: 0,
-              g: 0,
-              r: 0
-            },
-            hShadow: 0,
-            vShadow: 0
-          }
-        ]
+        textShadows: []
       },
       value: ''
     });
 
     return { ...state, layers, index: layers.length - 1 };
+  })
+  .case(addTextShadow, state => {
+    const { index, layers: prevLayers } = state;
+    const layers = prevLayers.slice();
+
+    (layers[index] as TextLayer).style.textShadows.push({
+      blurRadius: 0,
+      color: {
+        a: 1,
+        b: 0,
+        g: 0,
+        r: 0
+      },
+      hShadow: 0,
+      vShadow: 0
+    });
+
+    return { ...state, layers };
   })
   .case(changeStyle, (state, { name, value }) => {
     const { index, layers: prevLayers } = state;
@@ -142,6 +153,13 @@ const layer = reducerWithInitialState(initialState)
     }
 
     return { ...state, layers };
+  })
+  .case(changePreviewValue, (state, { name }) => {
+    if (name === 'isInitialize') {
+      return initialState;
+    }
+
+    return state;
   })
   .case(changeValue, (state, { value }) => {
     const { index, layers: prevLayers } = state;
@@ -184,6 +202,14 @@ const layer = reducerWithInitialState(initialState)
       index,
       layers
     };
+  })
+  .case(removeTextShadow, (state, { index: textShadowIndex }) => {
+    const { index, layers: prevLayers } = state;
+    const layers = prevLayers.slice();
+
+    (layers[index] as TextLayer).style.textShadows.splice(textShadowIndex, 1);
+
+    return { ...state, layers };
   })
   .case(selectLayer, (state, { index }) => ({ ...state, index }))
   .case(upLayer, state => {

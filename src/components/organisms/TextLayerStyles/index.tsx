@@ -1,4 +1,6 @@
 import ChromePicker, { ChromePickerProps } from 'components/atoms/ChromePicker';
+import MinusButton, { MinusButtonProps } from 'components/atoms/MinusButton';
+import PlusButton, { PlusButtonProps } from 'components/atoms/PlusButton';
 import Input from 'components/atoms/Input';
 import LayerStyles from 'components/molecules/LayerStyles';
 import TextShadow, { TextShadowProps } from 'components/molecules/TextShadow';
@@ -19,6 +21,33 @@ const StyledLayerStyles = styled(LayerStyles)`
   .text-shadow {
     margin-top: 10px;
   }
+
+  .name {
+    display: flex;
+    justify-content: space-between;
+
+    .plus-button {
+      height: 14.4px;
+      width: 14.4px;
+    }
+  }
+
+  .node-list > li {
+    position: relative;
+
+    &:not(:first-child) {
+      border-top: 1px solid white;
+      margin-top: 10px;
+    }
+
+    .minus-button {
+      height: 14.4px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 14.4px;
+    }
+  }
 `;
 
 interface Font {
@@ -35,6 +64,7 @@ export interface TextLayerStylesProps
   };
   fonts: Font[];
   fontSize: number;
+  fontStyle: boolean;
   fontWeight: number;
   letterSpacing: number;
   lineHeight: number;
@@ -43,6 +73,8 @@ export interface TextLayerStylesProps
     name: string
   ) => void;
   onChangeFontFamily: (value: ArgumentTypes<Props['onChange']>[0]) => void;
+  onClickAddTextShadow: PlusButtonProps['onClick'];
+  onClickRemoveTextShadow: MinusButtonProps['onClick'];
   opacity: number;
   rotate: number;
   textShadows: Pick<
@@ -56,12 +88,15 @@ const TextLayerStyles: React.SFC<TextLayerStylesProps> = ({
   fontFamily,
   fonts,
   fontSize,
+  fontStyle,
   fontWeight,
   letterSpacing,
   lineHeight,
   onChange,
   onChangeColor,
   onChangeFontFamily,
+  onClickAddTextShadow,
+  onClickRemoveTextShadow,
   opacity,
   rotate,
   textShadows
@@ -111,6 +146,17 @@ const TextLayerStyles: React.SFC<TextLayerStylesProps> = ({
               />
               px
             </React.Fragment>
+          )
+        },
+        {
+          name: 'font-style',
+          node: (
+            <Input
+              defaultChecked={fontStyle}
+              name="fontStyle"
+              onChange={onChange}
+              type="checkbox"
+            />
           )
         },
         {
@@ -191,17 +237,35 @@ const TextLayerStyles: React.SFC<TextLayerStylesProps> = ({
           )
         },
         {
-          name: 'text-shadow',
-          node: textShadows.map((textShadow, index) => (
-            <TextShadow
-              {...textShadow}
-              className="text-shadow"
-              key={index}
-              name={`textShadows[${index}]`}
-              onChange={onChange}
-              onChangeTextShadowColor={onChangeColor}
-            />
-          ))
+          name: (
+            <div className="name">
+              <p>text-shadow</p>
+              <PlusButton
+                className="plus-button"
+                onClick={onClickAddTextShadow}
+              />
+            </div>
+          ),
+          node: (
+            <ul className="node-list">
+              {textShadows.map((textShadow, index) => (
+                <li key={index}>
+                  <MinusButton
+                    className="minus-button"
+                    name={index.toString()}
+                    onClick={onClickRemoveTextShadow}
+                  />
+                  <TextShadow
+                    {...textShadow}
+                    className="text-shadow"
+                    name={`textShadows[${index}]`}
+                    onChange={onChange}
+                    onChangeTextShadowColor={onChangeColor}
+                  />
+                </li>
+              ))}
+            </ul>
+          )
         }
       ]}
     </StyledLayerStyles>

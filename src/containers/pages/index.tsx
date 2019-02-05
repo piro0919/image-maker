@@ -1,10 +1,12 @@
 import setFonts from 'actions/fonts/setFonts';
 import addImageLayer from 'actions/layer/addImageLayer';
 import addTextLayer from 'actions/layer/addTextLayer';
+import addTextShadow from 'actions/layer/addTextShadow';
 import changeStyle from 'actions/layer/changeStyle';
 import changeValue from 'actions/layer/changeValue';
 import downLayer from 'actions/layer/downLayer';
 import removeLayer from 'actions/layer/removeLayer';
+import removeTextShadow from 'actions/layer/removeTextShadow';
 import selectLayer from 'actions/layer/selectLayer';
 import upLayer from 'actions/layer/upLayer';
 import changePreviewValue from 'actions/preview/changeValue';
@@ -171,6 +173,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
     const {
       addImageLayers,
       addTextLayer,
+      addTextShadow,
       changeColor,
       changeFontFamily,
       changePreviewBackgroundColor,
@@ -185,6 +188,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
       layers,
       preview,
       removeLayer,
+      removeTextShadow,
       selectLayer,
       upLayer
     } = this.props;
@@ -206,6 +210,8 @@ class Pages extends React.Component<PagesProps, PagesState> {
             onChange={changeStyle}
             onChangeColor={changeColor}
             onChangeFontFamily={changeFontFamily}
+            onClickAddTextShadow={addTextShadow}
+            onClickRemoveTextShadow={removeTextShadow}
           />
         );
       } else if ('url' in layer) {
@@ -308,6 +314,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     });
   },
   addTextLayer: () => dispatch(addTextLayer()),
+  addTextShadow: () => dispatch(addTextShadow()),
   changeColor: (
     { rgb: value }: ArgumentTypes<TextLayerStylesProps['onChangeColor']>[0],
     name: string
@@ -331,15 +338,21 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
       changePreviewValue({ name, value: type === 'checkbox' ? checked : value })
     ),
   changeStyle: ({
-    currentTarget: { name, value }
+    currentTarget: { checked, name, type, value }
   }: ArgumentTypes<TextLayerStylesProps['onChange']>[0]) =>
-    dispatch(changeStyle({ name, value })),
+    dispatch(
+      changeStyle({ name, value: type === 'checkbox' ? checked : value })
+    ),
   changeValue: ({
     target: { value }
   }: React.ChangeEvent<HTMLTextAreaElement>) =>
     dispatch(changeValue({ value })),
   downLayer: () => dispatch(downLayer()),
   removeLayer: () => dispatch(removeLayer()),
+  removeTextShadow: ({
+    currentTarget: { name }
+  }: ArgumentTypes<TextLayerStylesProps['onClickRemoveTextShadow']>[0]) =>
+    dispatch(removeTextShadow({ index: parseInt(name, 10) })),
   selectLayer: ({
     currentTarget: { dataset }
   }:

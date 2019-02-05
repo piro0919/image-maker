@@ -67,6 +67,7 @@ const TextShadow: React.SFC<TextShadowProps> = ({
     <dd>
       <Input
         className="input"
+        min={0}
         name={`${name}.blurRadius`}
         onChange={onChange}
         step={0.1}
