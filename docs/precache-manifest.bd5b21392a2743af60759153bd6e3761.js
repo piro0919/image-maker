@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/image-maker/static/css/1.bde87f26.chunk.css"
   },
   {
-    "revision": "101179b47629e0c66611af5e8f3935d6",
+    "revision": "8d07c033e47121cc027290dbca03993e",
     "url": "/image-maker/index.html"
   }
 ];
