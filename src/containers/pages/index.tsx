@@ -33,6 +33,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
+import { TwitterShareButton } from 'react-share';
 import { State } from 'reducers';
 import { Dispatch } from 'redux';
 import styled from 'styled-components';
@@ -232,6 +233,7 @@ class Pages extends React.Component<PagesProps, PagesState> {
             changePreviewIsInitialize={changePreviewIsInitialize}
             onChangePreviewValue={changePreviewValue}
           />
+          <TwitterShareButton />
         </header>
         <aside className="detail">{styles}</aside>
         <div className="preview">
