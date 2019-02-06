@@ -1,17 +1,13 @@
 {
-  "main.js": "/image-maker/static/js/main.db6d2834.chunk.js",
-  "main.js.map": "/image-maker/static/js/main.db6d2834.chunk.js.map",
-  "static/css/1.21620937.chunk.css": "/image-maker/static/css/1.21620937.chunk.css",
-  "static/js/1.0f97a778.chunk.js": "/image-maker/static/js/1.0f97a778.chunk.js",
-  "static/js/1.0f97a778.chunk.js.map": "/image-maker/static/js/1.0f97a778.chunk.js.map",
+  "main.js": "/image-maker/static/js/main.41395483.chunk.js",
+  "main.js.map": "/image-maker/static/js/main.41395483.chunk.js.map",
+  "static/css/1.bde87f26.chunk.css": "/image-maker/static/css/1.bde87f26.chunk.css",
+  "static/js/1.aa3bdaf8.chunk.js": "/image-maker/static/js/1.aa3bdaf8.chunk.js",
+  "static/js/1.aa3bdaf8.chunk.js.map": "/image-maker/static/js/1.aa3bdaf8.chunk.js.map",
   "runtime~main.js": "/image-maker/static/js/runtime~main.79dc00fd.js",
   "runtime~main.js.map": "/image-maker/static/js/runtime~main.79dc00fd.js.map",
-  "static/css/1.21620937.chunk.css.map": "/image-maker/static/css/1.21620937.chunk.css.map",
+  "static/css/1.bde87f26.chunk.css.map": "/image-maker/static/css/1.bde87f26.chunk.css.map",
   "index.html": "/image-maker/index.html",
-<<<<<<< HEAD
-  "precache-manifest.bd5b21392a2743af60759153bd6e3761.js": "/image-maker/precache-manifest.bd5b21392a2743af60759153bd6e3761.js",
-=======
-  "precache-manifest.6b584e9d390645da1093feae42de83f7.js": "/image-maker/precache-manifest.6b584e9d390645da1093feae42de83f7.js",
->>>>>>> ea3aef3a580c44f624c239c0e91717f9528e03d8
+  "precache-manifest.b7b8d3679b269d5a2878ea2f3c4bd5f3.js": "/image-maker/precache-manifest.b7b8d3679b269d5a2878ea2f3c4bd5f3.js",
   "service-worker.js": "/image-maker/service-worker.js"
 }

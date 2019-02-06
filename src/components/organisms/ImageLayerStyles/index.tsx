@@ -7,9 +7,18 @@ const StyledLayerStyles = styled(LayerStyles)`
   .input {
     width: 50px;
   }
+
+  .filter-list {
+    width: 230px;
+  }
 `;
 
 export interface ImageLayerStylesProps {
+  filter: {
+    blur: number;
+    brightness: number;
+    contrast: number;
+  };
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   opacity: number;
   rotate: number;
@@ -17,6 +26,7 @@ export interface ImageLayerStylesProps {
 }
 
 const ImageLayerStyles: React.SFC<ImageLayerStylesProps> = ({
+  filter,
   onChange,
   opacity,
   rotate,
@@ -24,6 +34,51 @@ const ImageLayerStyles: React.SFC<ImageLayerStylesProps> = ({
 }: ImageLayerStylesProps) => (
   <StyledLayerStyles>
     {[
+      {
+        name: 'filter',
+        node: (
+          <dl className="filter-list">
+            <dt>blur</dt>
+            <dd>
+              <Input
+                className="input"
+                min={0}
+                name="filter.blur"
+                onChange={onChange}
+                step={0.01}
+                type="number"
+                value={filter.blur}
+              />
+              px
+            </dd>
+            <dt>brightness</dt>
+            <dd>
+              <Input
+                className="input"
+                min={0}
+                name="filter.brightness"
+                onChange={onChange}
+                step={0.01}
+                type="number"
+                value={filter.brightness}
+              />
+            </dd>
+            <dt>contrast</dt>
+            <dd>
+              <Input
+                className="input"
+                min={0}
+                name="filter.contrast"
+                onChange={onChange}
+                step={0.1}
+                type="number"
+                value={filter.contrast}
+              />
+              %
+            </dd>
+          </dl>
+        )
+      },
       {
         name: 'opacity',
         node: (

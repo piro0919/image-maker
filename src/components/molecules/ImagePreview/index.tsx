@@ -4,6 +4,12 @@ import * as uniqid from 'uniqid';
 export interface ImagePreviewProps {
   id: string;
   style: {
+    filter: {
+      blur: number;
+      brightness: number;
+      contrast: number;
+      // dropShadow: any;
+    };
     opacity: number;
     rotate: number;
     scale: number;
@@ -61,7 +67,12 @@ class ImagePreview extends React.Component<
 
   render() {
     const {
-      style: { rotate, scale, ...style }
+      style: {
+        filter: { blur, brightness, contrast },
+        rotate,
+        scale,
+        ...style
+      }
     } = this.props;
     const { height, width } = this.state;
 
@@ -69,7 +80,11 @@ class ImagePreview extends React.Component<
       <canvas
         height={height}
         id={this.id}
-        style={{ transform: `rotate(${rotate}deg) scale(${scale})`, ...style }}
+        style={{
+          filter: `blur(${blur}px) brightness(${brightness}) contrast(${contrast}%)`,
+          transform: `rotate(${rotate}deg) scale(${scale})`,
+          ...style
+        }}
         width={width}
       />
     );

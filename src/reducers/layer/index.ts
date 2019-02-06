@@ -15,6 +15,11 @@ import * as uniqid from 'uniqid';
 interface ImageLayer {
   id: string;
   style: {
+    filter: {
+      blur: number;
+      brightness: number;
+      contrast: number;
+    };
     opacity: number;
     rotate: number;
     scale: number;
@@ -78,6 +83,11 @@ const layer = reducerWithInitialState(initialState)
       url,
       id: uniqid(),
       style: {
+        filter: {
+          blur: 0,
+          brightness: 1,
+          contrast: 100
+        },
         opacity: 1,
         rotate: 0,
         scale: 1
@@ -141,9 +151,16 @@ const layer = reducerWithInitialState(initialState)
 
     if (name.indexOf('.') >= 0) {
       const [first, secondName] = name.split('.');
-      const [_, firstName, index2] = first.match('([a-zA-Z]+)\\[(.+)\\]');
 
-      layers[index].style[firstName][parseInt(index2, 10)][secondName] = value;
+      if (RegExp('([a-zA-Z]+)\\[(.+)\\]').test(first)) {
+        const [_, firstName, index2] = first.match('([a-zA-Z]+)\\[(.+)\\]');
+
+        layers[index].style[firstName][parseInt(index2, 10)][
+          secondName
+        ] = value;
+      } else {
+        layers[index].style[first][secondName] = value;
+      }
     } else {
       if (name === 'opacity' || name === 'rotate' || name === 'scale') {
         layers[index].style[name] = parseFloat(value);

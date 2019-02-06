@@ -32,20 +32,24 @@ const StyledLayerStyles = styled(LayerStyles)`
     }
   }
 
-  .node-list > li {
-    position: relative;
+  .node-list {
+    width: 230px;
 
-    &:not(:first-child) {
-      border-top: 1px solid white;
-      margin-top: 10px;
-    }
+    > li {
+      position: relative;
 
-    .minus-button {
-      height: 14.4px;
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 14.4px;
+      &:not(:first-child) {
+        border-top: 1px solid white;
+        margin-top: 10px;
+      }
+
+      .minus-button {
+        height: 14.4px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 14.4px;
+      }
     }
   }
 `;
