@@ -33,7 +33,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
-import { TwitterShareButton } from 'react-share';
+import { TwitterIcon, TwitterShareButton } from 'react-share';
 import { State } from 'reducers';
 import { Dispatch } from 'redux';
 import styled from 'styled-components';
@@ -49,7 +49,22 @@ const Div = styled.div`
   .header {
     border-bottom: 1px #ddd inset;
     grid-column: 1 / 4;
+    position: relative;
     z-index: 2;
+
+    .twitter-share-button {
+      position: absolute;
+      right: 5px;
+      top: 0;
+
+      rect {
+        fill: rgba(0, 0, 0, 0);
+      }
+
+      path {
+        fill: rgb(0, 172, 237);
+      }
+    }
   }
 
   .detail {
@@ -233,7 +248,15 @@ class Pages extends React.Component<PagesProps, PagesState> {
             changePreviewIsInitialize={changePreviewIsInitialize}
             onChangePreviewValue={changePreviewValue}
           />
-          <TwitterShareButton />
+          <div className="twitter-share-button">
+            <TwitterShareButton
+              hashtags={['image-maker']}
+              title="Image Maker"
+              url="https://piro0919.github.io/image-maker/"
+            >
+              <TwitterIcon size={25} />
+            </TwitterShareButton>
+          </div>
         </header>
         <aside className="detail">{styles}</aside>
         <div className="preview">
