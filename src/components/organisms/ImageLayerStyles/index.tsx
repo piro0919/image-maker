@@ -18,6 +18,9 @@ export interface ImageLayerStylesProps {
     blur: number;
     brightness: number;
     contrast: number;
+    grayscale: number;
+    hueRotate: number;
+    invert: number;
   };
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   opacity: number;
@@ -73,6 +76,48 @@ const ImageLayerStyles: React.SFC<ImageLayerStylesProps> = ({
                 step={0.1}
                 type="number"
                 value={filter.contrast}
+              />
+              %
+            </dd>
+            <dt>grayscale</dt>
+            <dd>
+              <Input
+                className="input"
+                max={100}
+                min={0}
+                name="filter.grayscale"
+                onChange={onChange}
+                step={0.1}
+                type="number"
+                value={filter.grayscale}
+              />
+              %
+            </dd>
+            <dt>hue-rotate</dt>
+            <dd>
+              <Input
+                className="input"
+                max={360}
+                min={-360}
+                name="filter.hueRotate"
+                onChange={onChange}
+                step={0.1}
+                type="number"
+                value={filter.hueRotate}
+              />
+              deg
+            </dd>
+            <dt>invert</dt>
+            <dd>
+              <Input
+                className="input"
+                max={100}
+                min={0}
+                name="filter.invert"
+                onChange={onChange}
+                step={0.1}
+                type="number"
+                value={filter.invert}
               />
               %
             </dd>

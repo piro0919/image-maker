@@ -19,6 +19,9 @@ interface ImageLayer {
       blur: number;
       brightness: number;
       contrast: number;
+      grayscale: number;
+      hueRotate: number;
+      invert: number;
     };
     opacity: number;
     rotate: number;
@@ -86,7 +89,10 @@ const layer = reducerWithInitialState(initialState)
         filter: {
           blur: 0,
           brightness: 1,
-          contrast: 100
+          contrast: 100,
+          grayscale: 0,
+          hueRotate: 0,
+          invert: 0
         },
         opacity: 1,
         rotate: 0,
