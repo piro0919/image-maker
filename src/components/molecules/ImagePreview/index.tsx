@@ -11,6 +11,8 @@ export interface ImagePreviewProps {
       grayscale: number;
       hueRotate: number;
       invert: number;
+      saturate: number;
+      sepia: number;
     };
     opacity: number;
     rotate: number;
@@ -70,7 +72,16 @@ class ImagePreview extends React.Component<
   render() {
     const {
       style: {
-        filter: { blur, brightness, contrast, grayscale, hueRotate, invert },
+        filter: {
+          blur,
+          brightness,
+          contrast,
+          grayscale,
+          hueRotate,
+          invert,
+          saturate,
+          sepia
+        },
         rotate,
         scale,
         ...style
@@ -83,7 +94,7 @@ class ImagePreview extends React.Component<
         height={height}
         id={this.id}
         style={{
-          filter: `blur(${blur}px) brightness(${brightness}) contrast(${contrast}%) grayscale(${grayscale}%) hue-rotate(${hueRotate}deg) invert(${invert}%)`,
+          filter: `blur(${blur}px) brightness(${brightness}) contrast(${contrast}%) grayscale(${grayscale}%) hue-rotate(${hueRotate}deg) invert(${invert}%) saturate(${saturate}%) sepia(${sepia}%)`,
           transform: `rotate(${rotate}deg) scale(${scale})`,
           ...style
         }}

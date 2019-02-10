@@ -1,0 +1,462 @@
+[
+  {
+    "fontFamily": "BANBAN-FREE",
+    "name": "バンバン"
+  },
+  {
+    "fontFamily": "chogokubosogothic_5",
+    "name": "超極細ゴシック"
+  },
+  {
+    "fontFamily": "font_1_kokugl_1.15_rls",
+    "name": "刻ゴシック"
+  },
+  {
+    "fontFamily": "font_1_kokumr_1.00_rls",
+    "name": "刻明朝"
+  },
+  {
+    "fontFamily": "GAGAGAGA-FREE",
+    "name": "ガガガガ"
+  },
+  {
+    "fontFamily": "GenRyuMinJP-Bold",
+    "name": "源流明朝 Bold"
+  },
+  {
+    "fontFamily": "GenRyuMinJP-ExtraLight",
+    "name": "源流明朝 ExtraLight"
+  },
+  {
+    "fontFamily": "GenRyuMinJP-Heavy",
+    "name": "源流明朝 Heavy"
+  },
+  {
+    "fontFamily": "GenRyuMinJP-Light",
+    "name": "源流明朝 Light"
+  },
+  {
+    "fontFamily": "GenRyuMinJP-Medium",
+    "name": "源流明朝 Medium"
+  },
+  {
+    "fontFamily": "GenRyuMinJP-Regular",
+    "name": "源流明朝 Regular"
+  },
+  {
+    "fontFamily": "GenRyuMinJP-SemiBold",
+    "name": "源流明朝 SemiBold"
+  },
+  {
+    "fontFamily": "GenSenMaruGothicJP-Bold",
+    "name": "源泉丸ゴシック Bold"
+  },
+  {
+    "fontFamily": "GenSenMaruGothicJP-ExtraLight",
+    "name": "源泉丸ゴシック ExtraLight"
+  },
+  {
+    "fontFamily": "GenSenMaruGothicJP-Heavy",
+    "name": "源泉丸ゴシック Heavy"
+  },
+  {
+    "fontFamily": "GenSenMaruGothicJP-Light",
+    "name": "源泉丸ゴシック Light"
+  },
+  {
+    "fontFamily": "GenSenMaruGothicJP-Medium",
+    "name": "源泉丸ゴシック Medium"
+  },
+  {
+    "fontFamily": "GenSenMaruGothicJP-Regular",
+    "name": "源泉丸ゴシック Regular"
+  },
+  {
+    "fontFamily": "GenYoMinJP-Bold",
+    "name": "源様明朝 Bold"
+  },
+  {
+    "fontFamily": "GenYoMinJP-ExtraLight",
+    "name": "源様明朝 ExtraLight"
+  },
+  {
+    "fontFamily": "GenYoMinJP-Heavy",
+    "name": "源様明朝 Heavy"
+  },
+  {
+    "fontFamily": "GenYoMinJP-Light",
+    "name": "源様明朝 Light"
+  },
+  {
+    "fontFamily": "GenYoMinJP-Medium",
+    "name": "源様明朝 Medium"
+  },
+  {
+    "fontFamily": "GenYoMinJP-Regular",
+    "name": "源様明朝 Regular"
+  },
+  {
+    "fontFamily": "GenYoMinJP-SemiBold",
+    "name": "源様明朝 SemiBold"
+  },
+  {
+    "fontFamily": "HigashiOme-Gothic-1-3i",
+    "name": "東青梅ゴシック"
+  },
+  {
+    "fontFamily": "HigashiOme-Gothic-C-1-3",
+    "name": "東青梅ゴシック C"
+  },
+  {
+    "fontFamily": "InvisibleGothic-B",
+    "name": "インビジブルゴシック"
+  },
+  {
+    "fontFamily": "JKG-L_3",
+    "name": "JKゴシックL"
+  },
+  {
+    "fontFamily": "JKG-M_3",
+    "name": "JKゴシックM"
+  },
+  {
+    "fontFamily": "K Gothic",
+    "name": "Kゴシック"
+  },
+  {
+    "fontFamily": "KikaiChokokuJIS-Md",
+    "name": "機械彫刻用標準書体 Medium"
+  },
+  {
+    "fontFamily": "KokuMaruMinchoKana-Regular",
+    "name": "刻丸明朝かな"
+  },
+  {
+    "fontFamily": "komorebi-gothic",
+    "name": "木漏れ日ゴシック"
+  },
+  {
+    "fontFamily": "komorebi-gothic-P",
+    "name": "木漏れ日ゴシック P"
+  },
+  {
+    "fontFamily": "kurobara-gothic-black",
+    "name": "黒薔薇ゴシック Black"
+  },
+  {
+    "fontFamily": "kurobara-gothic-bold",
+    "name": "黒薔薇ゴシック Bold"
+  },
+  {
+    "fontFamily": "kurobara-gothic-heavy",
+    "name": "黒薔薇ゴシック Heavy"
+  },
+  {
+    "fontFamily": "kurobara-gothic-light",
+    "name": "黒薔薇ゴシック Light"
+  },
+  {
+    "fontFamily": "kurobara-gothic-medium",
+    "name": "黒薔薇ゴシック Medium"
+  },
+  {
+    "fontFamily": "kurobara-gothic-regular",
+    "name": "黒薔薇ゴシック Regular"
+  },
+  {
+    "fontFamily": "kurobara-gothic-thin",
+    "name": "黒薔薇ゴシック Thin"
+  },
+  {
+    "fontFamily": "Line-Light",
+    "name": "Line"
+  },
+  {
+    "fontFamily": "logo-type",
+    "name": "ロゴたいぷゴシック"
+  },
+  {
+    "fontFamily": "MISHIMISHI-BLOCK",
+    "name": "ミシミシ"
+  },
+  {
+    "fontFamily": "MochiyPop-E",
+    "name": "モッチーポップ"
+  },
+  {
+    "fontFamily": "mplus-1c-black",
+    "name": "M+ C Type-1 Black"
+  },
+  {
+    "fontFamily": "mplus-1c-bold",
+    "name": "M+ C Type-1 Bold"
+  },
+  {
+    "fontFamily": "mplus-1c-heavy",
+    "name": "M+ C Type-1 Heavy"
+  },
+  {
+    "fontFamily": "mplus-1c-light",
+    "name": "M+ C Type-1 Light"
+  },
+  {
+    "fontFamily": "mplus-1c-medium",
+    "name": "M+ C Type-1 Medium"
+  },
+  {
+    "fontFamily": "mplus-1c-regular",
+    "name": "M+ C Type-1 Regular"
+  },
+  {
+    "fontFamily": "mplus-1c-thin",
+    "name": "M+ C Type-1 Thin"
+  },
+  {
+    "fontFamily": "mplus-1m-bold",
+    "name": "M+ M Type-1 Bold"
+  },
+  {
+    "fontFamily": "mplus-1m-light",
+    "name": "M+ M Type-1 Light"
+  },
+  {
+    "fontFamily": "mplus-1m-medium",
+    "name": "M+ M Type-1 Medium"
+  },
+  {
+    "fontFamily": "mplus-1mn-bold",
+    "name": "M+ MN Type-1 Bold"
+  },
+  {
+    "fontFamily": "mplus-1mn-light",
+    "name": "M+ MN Type-1 Light"
+  },
+  {
+    "fontFamily": "mplus-1mn-medium",
+    "name": "M+ MN Type-1 Medium"
+  },
+  {
+    "fontFamily": "mplus-1mn-regular",
+    "name": "M+ MN Type-1 Regular"
+  },
+  {
+    "fontFamily": "mplus-1mn-thin",
+    "name": "M+ MN Type-1 Thin"
+  },
+  {
+    "fontFamily": "mplus-1m-regular",
+    "name": "M+ M Type-1 Regular"
+  },
+  {
+    "fontFamily": "mplus-1m-thin",
+    "name": "M+ M Type-1 Thin"
+  },
+  {
+    "fontFamily": "mplus-1p-black",
+    "name": "M+ P Type-1 Black"
+  },
+  {
+    "fontFamily": "mplus-1p-bold",
+    "name": "M+ P Type-1 Bold"
+  },
+  {
+    "fontFamily": "mplus-1p-heavy",
+    "name": "M+ P Type-1 Heavy"
+  },
+  {
+    "fontFamily": "mplus-1p-light",
+    "name": "M+ P Type-1 Light"
+  },
+  {
+    "fontFamily": "mplus-1p-medium",
+    "name": "M+ P Type-1 Medium"
+  },
+  {
+    "fontFamily": "mplus-1p-regular",
+    "name": "M+ P Type-1 Regular"
+  },
+  {
+    "fontFamily": "mplus-1p-thin",
+    "name": "M+ P Type-1 Thin"
+  },
+  {
+    "fontFamily": "mplus-2c-black",
+    "name": "M+ C Type-2 Black"
+  },
+  {
+    "fontFamily": "mplus-2c-bold",
+    "name": "M+ C Type-2 Bold"
+  },
+  {
+    "fontFamily": "mplus-2c-heavy",
+    "name": "M+ C Type-2 Heavy"
+  },
+  {
+    "fontFamily": "mplus-2c-light",
+    "name": "M+ C Type-2 Light"
+  },
+  {
+    "fontFamily": "mplus-2c-medium",
+    "name": "M+ C Type-2 Medium"
+  },
+  {
+    "fontFamily": "mplus-2c-regular",
+    "name": "M+ C Type-2 Regular"
+  },
+  {
+    "fontFamily": "mplus-2c-thin",
+    "name": "M+ C Type-2 Thin"
+  },
+  {
+    "fontFamily": "mplus-2m-bold",
+    "name": "M+ M Type-2 Bold"
+  },
+  {
+    "fontFamily": "mplus-2m-light",
+    "name": "M+ M Type-2 Light"
+  },
+  {
+    "fontFamily": "mplus-2m-medium",
+    "name": "M+ M Type-2 Medium"
+  },
+  {
+    "fontFamily": "mplus-2m-regular",
+    "name": "M+ M Type-2 Regular"
+  },
+  {
+    "fontFamily": "mplus-2m-thin",
+    "name": "M+ M Type-2 Thin"
+  },
+  {
+    "fontFamily": "mplus-2p-black",
+    "name": "M+ P Type-2 Black"
+  },
+  {
+    "fontFamily": "mplus-2p-bold",
+    "name": "M+ P Type-2 Bold"
+  },
+  {
+    "fontFamily": "mplus-2p-heavy",
+    "name": "M+ P Type-2 Heavy"
+  },
+  {
+    "fontFamily": "mplus-2p-light",
+    "name": "M+ P Type-2 Light"
+  },
+  {
+    "fontFamily": "mplus-2p-medium",
+    "name": "M+ P Type-2 Medium"
+  },
+  {
+    "fontFamily": "mplus-2p-regular",
+    "name": "M+ P Type-2 Regular"
+  },
+  {
+    "fontFamily": "mplus-2p-thin",
+    "name": "M+ P Type-2 Thin"
+  },
+  {
+    "fontFamily": "NagomiGokubosoGothic-ExtraLight",
+    "name": "なごみ極細ゴシック"
+  },
+  {
+    "fontFamily": "Senobi-Gothic-Bold",
+    "name": "せのびゴシック Bold"
+  },
+  {
+    "fontFamily": "Senobi-Gothic-Medium",
+    "name": "せのびゴシック Medium"
+  },
+  {
+    "fontFamily": "Senobi-Gothic-Regular",
+    "name": "せのびゴシック Regular"
+  },
+  {
+    "fontFamily": "pupupu-free",
+    "name": "プぷプ"
+  },
+  {
+    "fontFamily": "ryakuji3",
+    "name": "略字フォント"
+  },
+  {
+    "fontFamily": "ryakujiGSGEL",
+    "name": "略字GSゴシック ExtraLight"
+  },
+  {
+    "fontFamily": "ryakujiGSGL",
+    "name": "略字GSゴシック Light"
+  },
+  {
+    "fontFamily": "ryakujiGSGM",
+    "name": "略字GSゴシック Medium"
+  },
+  {
+    "fontFamily": "ryakujiGSGR",
+    "name": "略字GSゴシック Regular"
+  },
+  {
+    "fontFamily": "ryakujiGSGUL",
+    "name": "略字GSゴシック UltraLight"
+  },
+  {
+    "fontFamily": "ShipporiMincho-Regular",
+    "name": "しっぽり明朝v2"
+  },
+  {
+    "fontFamily": "Snap_P_ver1",
+    "name": "スナップP"
+  },
+  {
+    "fontFamily": "togalite-black",
+    "name": "トガリテ Black"
+  },
+  {
+    "fontFamily": "togalite-bold",
+    "name": "トガリテ Bold"
+  },
+  {
+    "fontFamily": "togalite-heavy",
+    "name": "トガリテ Heavy"
+  },
+  {
+    "fontFamily": "togalite-light",
+    "name": "トガリテ Light"
+  },
+  {
+    "fontFamily": "togalite-medium",
+    "name": "トガリテ Medium"
+  },
+  {
+    "fontFamily": "togalite-regular",
+    "name": "トガリテ Regular"
+  },
+  {
+    "fontFamily": "TogetogeRock-B",
+    "name": "トゲトゲロック"
+  },
+  {
+    "fontFamily": "yasasisa",
+    "name": "やさしさゴシック"
+  },
+  {
+    "fontFamily": "yasasisa-b",
+    "name": "やさしさゴシック Bold"
+  },
+  {
+    "fontFamily": "ZakkuriGothic-BLK",
+    "name": "ざっくりゴシック"
+  },
+  {
+    "fontFamily": "ZakkuriGothicLeft-BLK",
+    "name": "ざっくりゴシックLeft"
+  },
+  {
+    "fontFamily": "Zatsufude-M",
+    "name": "ざつふで"
+  },
+  {
+    "fontFamily": "ZenjidoJP-FeltPenLMT-TTF",
+    "name": "全児童フォント"
+  }
+]

@@ -22,6 +22,8 @@ interface ImageLayer {
       grayscale: number;
       hueRotate: number;
       invert: number;
+      saturate: number;
+      sepia: number;
     };
     opacity: number;
     rotate: number;
@@ -92,7 +94,9 @@ const layer = reducerWithInitialState(initialState)
           contrast: 100,
           grayscale: 0,
           hueRotate: 0,
-          invert: 0
+          invert: 0,
+          saturate: 100,
+          sepia: 0
         },
         opacity: 1,
         rotate: 0,

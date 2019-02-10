@@ -21,6 +21,8 @@ export interface ImageLayerStylesProps {
     grayscale: number;
     hueRotate: number;
     invert: number;
+    saturate: number;
+    sepia: number;
   };
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   opacity: number;
@@ -118,6 +120,33 @@ const ImageLayerStyles: React.SFC<ImageLayerStylesProps> = ({
                 step={0.1}
                 type="number"
                 value={filter.invert}
+              />
+              %
+            </dd>
+            <dt>saturate</dt>
+            <dd>
+              <Input
+                className="input"
+                min={0}
+                name="filter.saturate"
+                onChange={onChange}
+                step={0.1}
+                type="number"
+                value={filter.saturate}
+              />
+              %
+            </dd>
+            <dt>sepia</dt>
+            <dd>
+              <Input
+                className="input"
+                max={100}
+                min={0}
+                name="filter.sepia"
+                onChange={onChange}
+                step={0.1}
+                type="number"
+                value={filter.sepia}
               />
               %
             </dd>
